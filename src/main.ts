@@ -1,6 +1,8 @@
 import Phaser from "phaser";
 import Level from "./scenes/Level";
 import Preload from "./scenes/Preload";
+import ConnectingScene from "./scenes/initialization/ConnectingScene";
+import {GameRoomScene} from "./scenes/gameplay/GameRoomScene.ts";
 
 class Boot extends Phaser.Scene {
 
@@ -30,7 +32,7 @@ window.addEventListener('load', function () {
 			mode: Phaser.Scale.ScaleModes.FIT,
 			autoCenter: Phaser.Scale.Center.CENTER_BOTH
 		},
-		scene: [Boot, Preload, Level]
+		scene: [Boot, Preload, Level, ConnectingScene, GameRoomScene]
 	});
 
 	game.scene.start("Boot");

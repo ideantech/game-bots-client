@@ -25,6 +25,8 @@
     },
     "dependencies": {
         "@phaserjs/editor-scripts-base": "^1.0.0",
-        "phaser": "3.80.1"
+        "colyseus.js": "^0.16.19",
+        "phaser": "3.80.1",
+        "tick-knock": "^4.3.0"
     }
 }

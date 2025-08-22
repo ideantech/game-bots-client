@@ -1,0 +1,31 @@
+{
+    "id": "f70c7797-ffde-4962-bddd-70d3765f244d",
+    "sceneType": "SCENE",
+    "settings": {
+        "exportClass": true,
+        "autoImport": true,
+        "preloadPackFiles": [],
+        "createMethodName": "editorCreate",
+        "sceneKey": "GameRoomScene",
+        "compilerOutputLanguage": "TYPE_SCRIPT",
+        "borderWidth": 1280,
+        "borderHeight": 720
+    },
+    "displayList": [
+        {
+            "type": "Text",
+            "id": "3ec41e92-19d6-439e-9033-8e4f9909b0ae",
+            "label": "txtGameRoom",
+            "x": 68,
+            "y": 69,
+            "text": "GameRoom\n"
+        }
+    ],
+    "plainObjects": [],
+    "meta": {
+        "app": "Phaser Editor - Scene Editor",
+        "url": "https://phaser.io/editor",
+        "contentType": "phasereditor2d.core.scene.SceneContentType",
+        "version": 5
+    }
+}
