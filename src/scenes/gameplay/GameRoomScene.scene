@@ -16,6 +16,7 @@
             "type": "Text",
             "id": "3ec41e92-19d6-439e-9033-8e4f9909b0ae",
             "label": "txtGameRoom",
+            "scope": "CLASS",
             "x": 68,
             "y": 69,
             "text": "GameRoom\n"

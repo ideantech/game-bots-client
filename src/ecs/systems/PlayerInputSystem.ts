@@ -1,6 +1,6 @@
 import {Entity, ReactionSystem} from "tick-knock";
 import {PlayerInputComponent} from "../components/PlayerInputComponent.ts";
-import {GameRoomScene} from "../../scenes/gameplay/GameRoomScene.ts";
+import GameRoomScene from "../../scenes/gameplay/GameRoomScene.ts";
 import {ClientMessages} from "../../../../game-bots-server/src/communication/Messages.ts";
 
 export default class PlayerInputSystem extends ReactionSystem {

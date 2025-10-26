@@ -2,7 +2,7 @@ import Phaser from "phaser";
 import Level from "./scenes/Level";
 import Preload from "./scenes/Preload";
 import ConnectingScene from "./scenes/initialization/ConnectingScene";
-import {GameRoomScene} from "./scenes/gameplay/GameRoomScene.ts";
+import GameRoomScene from "./scenes/gameplay/GameRoomScene.ts";
 
 class Boot extends Phaser.Scene {
 

@@ -4,8 +4,6 @@
 /* START OF COMPILED CODE */
 
 /* START-USER-IMPORTS */
-/* END-USER-IMPORTS */
-
 import GameState from "../../data/GameState.ts";
 import  GameRoomState from "../../../../game-bots-server/src/rooms/schema/GameRoomState";
 import {Room} from "colyseus.js";
@@ -18,21 +16,13 @@ import GameRoomSchemaHandler from "../../communication/schema/GameRoomSchemaHand
 import Phaser from "phaser";
 import PlayerInputSystem from "../../ecs/systems/PlayerInputSystem.ts";
 import {PlayerInputComponent} from "../../ecs/components/PlayerInputComponent.ts";
+import MovementSystem from "../../ecs/systems/MovementSystem.ts";
+import PositionComponent from "../../ecs/components/PositionComponent.ts";
+import MovementComponent from "../../ecs/components/MovementComponent.ts";
+import DataRoot from "../../data/model/DataRoot.ts";
+/* END-USER-IMPORTS */
 
-
-export class GameRoomScene extends Phaser.Scene {
-
-	messenger: Messenger;
-	messageHandler: MessageHandler;
-	roomName: string = "game_room_test";
-	roomOptions: any = {};
-	room: Room<GameRoomState>;
-	world = new Engine();
-
-	networkMovementSystem = new NetworkMovementSystem();
-	playerInputSystem = new PlayerInputSystem();
-
-	remoteToLocalEntities = new Map<number, number>();
+export default class GameRoomScene extends Phaser.Scene {
 
 	constructor() {
 		super("GameRoomScene");
@@ -47,31 +37,46 @@ export class GameRoomScene extends Phaser.Scene {
 		// txtGameRoom
 		const txtGameRoom = this.add.text(68, 69, "", {});
 		txtGameRoom.text = "GameRoom\n";
-		txtGameRoom.setStyle({});
+		txtGameRoom.setStyle({  });
+
+		this.txtGameRoom = txtGameRoom;
 
 		this.events.emit("scene-awake");
 	}
 
+	private txtGameRoom!: Phaser.GameObjects.Text;
+
 	/* START-USER-CODE */
 	// Write your code here
+	messenger: Messenger;
+	messageHandler: MessageHandler;
+	roomName: string = "game_room_test";
+	roomOptions: any = {};
+	room: Room<GameRoomState>;
+	world = new Engine();
 
+	//networkMovementSystem = new NetworkMovementSystem();
+	//playerInputSystem = new PlayerInputSystem();
+	movementSystem = new MovementSystem();
+
+	//remoteToLocalEntities = new Map<number, number>();
 	init(data: any) {
 		if (data.room) this.roomName = data.room;
 		if (data.options) this.roomOptions = data.options;
 	}
 
-	findLocalEntity(remoteEntityId: number): Entity | undefined {
+	/*findLocalEntity(remoteEntityId: number): Entity | undefined {
 		let localEntityId = this.remoteToLocalEntities.get(remoteEntityId);
 		if (localEntityId) {
 			return this.world.getEntityById(localEntityId);
 		}
 		return undefined;
-	}
+	}*/
 
 	configureRoom() {
 		//const $ = getStateCallbacks(this.room);
 
-		this.messageHandler = new MessageHandler(this);
+		/*this.messageHandler = new MessageHandler(this);
 
 		GameRoomSchemaHandler.Configure(this);
 
@@ -89,7 +94,7 @@ export class GameRoomScene extends Phaser.Scene {
 				});
 				//this.room.send(ClientMessages.RequestControl, { entityId: entityId });
 			}, 1000);
-		});
+		});*/
 
 		// $(this.room.state).players.onAdd((player, index) => {
 		// 	console.log('player added', player.id, index);
@@ -123,21 +128,26 @@ export class GameRoomScene extends Phaser.Scene {
 
 		this.world.sharedConfig.add(this);
 
-		this.world.addSystem(this.networkMovementSystem, 10);
-		this.world.addSystem(this.playerInputSystem, 20);
+		//this.world.addSystem(this.networkMovementSystem, 10);
+		//this.world.addSystem(this.playerInputSystem, 20);
+		this.world.addSystem(this.movementSystem, 10);
 
-		GameState.Get().network.client.joinOrCreate<GameRoomState>(this.roomName, this.roomOptions).then((room) => {
-			window.console.log('joined room:', this.roomName);
-			this.room = room;
-			this.messenger = new Messenger(this.room);
+		let entity = new Entity();
+		let position = new PositionComponent();
+		let movement = new MovementComponent();
+		position.transform = this.txtGameRoom;
+		movement.walk(1, 1);
+		entity.addComponent(position);
+		entity.addComponent(movement);
+		this.world.addEntity(entity);
 
-			this.configureRoom();
-		});
+		let p = new DataRoot();
+
 	}
 
 	update(time: number, delta: number) {
 		super.update(time, delta);
-		this.world.update(delta);
+		this.world.update(delta / 1000.0);
 	}
 
 	/* END-USER-CODE */
