@@ -20,6 +20,9 @@ import MovementSystem from "../../ecs/systems/MovementSystem.ts";
 import PositionComponent from "../../ecs/components/PositionComponent.ts";
 import MovementComponent from "../../ecs/components/MovementComponent.ts";
 import DataRoot from "../../data/model/DataRoot.ts";
+import AnimatorComponent from "../../ecs/components/AnimatorComponent.ts";
+import AnimatorSystem from "../../ecs/systems/AnimatorSystem.ts";
+import { AbilitySystem } from "../../ecs/systems/AbilitySystem.ts";
 /* END-USER-IMPORTS */
 
 export default class GameRoomScene extends Phaser.Scene {
@@ -56,13 +59,22 @@ export default class GameRoomScene extends Phaser.Scene {
 	world = new Engine();
 
 	//networkMovementSystem = new NetworkMovementSystem();
-	//playerInputSystem = new PlayerInputSystem();
+	playerInputSystem = new PlayerInputSystem();
 	movementSystem = new MovementSystem();
+	animatorSystem = new AnimatorSystem();
+	abilitySystem = new AbilitySystem();
 
 	//remoteToLocalEntities = new Map<number, number>();
 	init(data: any) {
 		if (data.room) this.roomName = data.room;
 		if (data.options) this.roomOptions = data.options;
+	}
+
+	preload() {
+		//this.load.setBaseURL('https://cdn.phaserfiles.com/v385');
+        this.load.path = 'assets/';
+
+        this.load.aseprite('paladin', 'player.png', 'player.json');
 	}
 
 	/*findLocalEntity(remoteEntityId: number): Entity | undefined {
@@ -129,19 +141,33 @@ export default class GameRoomScene extends Phaser.Scene {
 		this.world.sharedConfig.add(this);
 
 		//this.world.addSystem(this.networkMovementSystem, 10);
-		//this.world.addSystem(this.playerInputSystem, 20);
-		this.world.addSystem(this.movementSystem, 10);
+		this.world.addSystem(this.playerInputSystem, 10);
+		this.world.addSystem(this.abilitySystem, 20);
+		this.world.addSystem(this.movementSystem, 30);
+		this.world.addSystem(this.animatorSystem, 40);
+
+		const tags = this.anims.createFromAseprite('paladin');
 
 		let entity = new Entity();
 		let position = new PositionComponent();
 		let movement = new MovementComponent();
-		position.transform = this.txtGameRoom;
-		movement.walk(1, 1);
+		let data = new DataRoot();
+		let playerInput = new PlayerInputComponent();
+		let animator = new AnimatorComponent();
+
+		const sprite = this.add.sprite(100, 100, 'paladin').play({ key: 'idle', repeat: -1});
+		sprite.scale = 3;
+		position.transform = sprite;
+		animator.sprite = sprite;
 		entity.addComponent(position);
 		entity.addComponent(movement);
+		entity.addComponent(data);
+		entity.addComponent(playerInput);
+		entity.addComponent(animator);
 		this.world.addEntity(entity);
 
-		let p = new DataRoot();
+		
+		
 
 	}
 

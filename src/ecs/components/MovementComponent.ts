@@ -1,3 +1,4 @@
+import Attribute from "../../data/model/attributes/Attribute";
 
 
 export default class MovementComponent {
@@ -6,9 +7,12 @@ export default class MovementComponent {
     static WALK: number = 1;
     static RUN: number = 2;
 
+    frozen: boolean = false;
     mode: number = MovementComponent.NONE;
     x: number = 0;
     y: number = 0;
+
+    _speed: Attribute<number>;
 
     walk(x: number, y: number) {
         this.x = x; this.y = y;

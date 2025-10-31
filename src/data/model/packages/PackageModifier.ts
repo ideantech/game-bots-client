@@ -6,4 +6,6 @@ export default abstract class PackageModifier {
 
     abstract applyTo(pkgs: PackageCollection, parent: Package): void;
 
+    setEnabled(_e: boolean) {}
+
 }

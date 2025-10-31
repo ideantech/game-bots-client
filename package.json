@@ -30,6 +30,7 @@
         "curves": "^1.1.0",
         "eventemitter3": "^5.0.1",
         "fs": "^0.0.1-security",
+        "mistreevous": "^4.3.1",
         "phaser": "3.80.1",
         "tick-knock": "^4.3.0"
     }

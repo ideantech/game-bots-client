@@ -34,6 +34,9 @@ export default class Package {
     }
 
     setEnabled(e: boolean) {
-
+        this._enabled = e;
+        for (let mod of this.modifiers) {
+            mod.setEnabled(e);
+        }
     }
 }

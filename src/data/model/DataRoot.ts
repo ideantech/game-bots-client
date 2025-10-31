@@ -10,7 +10,6 @@ import PackageAddModifier from "./packages/PackageAddModifier";
 import NumberModifier from "./modifiers/NumberModifier";
 import Modifier from "./modifiers/Modifier";
 import Attribute from "./attributes/Attribute";
-import { DataRootEvents } from "./RootEvents";
 import EventEmitter from "eventemitter3";
 
 class TestWeapon extends Package {
@@ -37,6 +36,13 @@ class TestWeapon extends Package {
 
 export default class DataRoot {
 
+    static ATTR_HEALTH = 'stats/health';
+    static ATTR_MAXHEALTH = 'stats/maxhealth';
+    static ATTR_LEVEL = 'stats/level';
+
+    static ATTR_WALKSPEED = 'misc/walk-speed';
+    static ATTR_RUNSPEED = 'misc/run-speed';
+
     events = new EventEmitter();
     attributes = new AttributeCollection();
     packages = new PackageCollection();
@@ -49,7 +55,7 @@ export default class DataRoot {
         this.attributes.create('stats/health', 23);
         this.attributes.create('stats/maxhealth', 1);
         this.attributes.create('stats/level', 55);
-        this.attributes.create('misc/speed', 10);
+        this.attributes.create('misc/walk-speed', 100);
     }
 
 

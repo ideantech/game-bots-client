@@ -21,6 +21,7 @@ export default abstract class Modifier<T> {
     priority: number = 0;
     value: T;
     enabled: boolean = true;
+    enableOnAdd: boolean = true;
     //curve: Curve<T> | undefined;
     //curveKey: string | undefined = undefined;
 
