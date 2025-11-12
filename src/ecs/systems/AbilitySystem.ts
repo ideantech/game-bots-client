@@ -1,5 +1,7 @@
 import { EntitySnapshot, LinkedComponent, ReactionSystem } from "tick-knock";
-import AbilityComponent, { AbilityBase } from "../components/AbilityComponent";
+import AbilityComponent from "../components/AbilityComponent";
+import { Ability } from "../../ability/Ability";
+import AnimatorComponent from "../components/AnimatorComponent";
 
 
 export class AbilitySystem extends ReactionSystem {
@@ -16,9 +18,27 @@ export class AbilitySystem extends ReactionSystem {
 
     }
 
+    handleComponentRemoved(component: AbilityComponent) {
+        // todo: if we were waiting for events, cleanup the handlers
+    }
+
+    handleAnimationEvent() {
+
+    }
+
     update(dt: number): void {
         for (let entity of this.entities) {
             entity.iterate(AbilityComponent, (ability) => {
+
+                ability.base.lifetime -= dt;
+                if (ability.base.lifetime <= 0) {
+                    console.log('!! ability timed out, cancelling');
+                    ability.base.cancel(entity);
+                    entity.pick(ability);
+                }
+
+                if (ability.waitingForEvents.length > 0) return;
+
                 if (ability.generator == undefined) {
                     ability.generator = ability.base.run(entity);
                 }
@@ -36,12 +56,25 @@ export class AbilitySystem extends ReactionSystem {
                 if (result.done == true) {
                     entity.pick(ability);
                 }
-                else if (result.value.command == AbilityBase.ABILITY_DONE) {
+                // done
+                else if (result.value.command == Ability.ABILITY_DONE) {
                     ability.generator.return(undefined);
                     entity.pick(ability);
                 }
-                else if (result.value.command == AbilityBase.ABILITY_DELAY && result.value.args) {
+                // ability wants a delay
+                else if (result.value.command == Ability.ABILITY_DELAY && result.value.args) {
                     ability.delay = <number> result.value.args[0];
+                }
+                // ability wants to wait for an animation event
+                else if (result.value.command == Ability.ABILITY_ANIMATION_EVENT) {
+                    if (result.value.args) {
+                        let event = <string> result.value.args[0];
+                        let animator = <AnimatorComponent> entity.get(AnimatorComponent);
+
+                        console.log('waiting for event:', event);
+                        ability.waitingForEvents = [event];
+                        animator.events.once(event, this.handleAnimationEvent, this);
+                    }
                 }
             });
         }

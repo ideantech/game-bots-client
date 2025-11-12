@@ -24,6 +24,7 @@
         "vite": "^5.1.4"
     },
     "dependencies": {
+        "@edium/fsm": "^2.1.5",
         "@phaserjs/editor-scripts-base": "^1.0.0",
         "color-string": "^2.1.2",
         "colyseus.js": "^0.16.19",

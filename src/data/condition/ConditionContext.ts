@@ -6,6 +6,6 @@ export default class ConditionContext {
 
     package: Package;
     root: DataRoot;
-    entity: Entity;
+    //entity: Entity | undefined;
 
 }

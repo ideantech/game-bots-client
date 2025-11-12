@@ -1,4 +1,5 @@
-import Attribute from "../attributes/Attribute";
+
+import ConditionRoot from "../../condition/ConditionRoot";
 import AttributeCollection from "../attributes/AttributeCollection";
 import Modifier from "../modifiers/Modifier";
 import PackageAddModifier from "./PackageAddModifier";
@@ -10,6 +11,7 @@ export default class Package {
     collection: PackageCollection;
     attributes = new AttributeCollection();
     modifiers: PackageModifier[] = [];
+    condition: ConditionRoot;
 
     _enabled: boolean = true;
 
@@ -31,6 +33,25 @@ export default class Package {
     }
 
     remove() {
+    }
+
+    evaluate() {
+        let newState = ConditionRoot.RESULT_DISABLE;
+        if (this.condition == undefined) {
+            newState = (this._enabled) ? ConditionRoot.RESULT_ENABLE : ConditionRoot.RESULT_DISABLE;
+        }
+        else {
+            newState = this.condition.evaluate();
+        }
+
+        console.log('package is:', newState);
+
+        if (newState == ConditionRoot.RESULT_ENABLE && !this._enabled) {
+            this.setEnabled(true);
+        }
+        else if (newState == ConditionRoot.RESULT_DISABLE && this._enabled) {
+            this.setEnabled(false);
+        }
     }
 
     setEnabled(e: boolean) {

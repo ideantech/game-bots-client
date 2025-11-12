@@ -5,7 +5,7 @@ export default class Attribute<T> {
 
     attributes: AttributeCollection;
     
-    id: string;
+    name: string;
     modifiers: Modifier<T>[] = [];
     value: T;
     baseValue: T;

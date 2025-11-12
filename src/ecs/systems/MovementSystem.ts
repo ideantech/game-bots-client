@@ -37,6 +37,18 @@ export default class MovementSystem extends ReactionSystem {
                 position.transform.x = dx;
                 position.transform.y = dy;
             }
+            else if (movement.mode == MovementComponent.IMPULSE) {
+                console.log('impulse');
+                let dx = position.transform.x + movement.impulseCurrent * deltaSec * movement.x;
+                let dy = position.transform.y + movement.impulseCurrent * deltaSec * movement.y;
+                position.transform.x = dx;
+                position.transform.y = dy;
+
+                console.log(movement.impulseCurrent);
+
+                let newImpulse = (1 - (movement.impulseDrag * deltaSec)) * movement.impulseCurrent;
+                movement.impulseCurrent = newImpulse;
+            }
         }
     }
 
