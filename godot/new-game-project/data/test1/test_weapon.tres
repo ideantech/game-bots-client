@@ -1,0 +1,66 @@
+[gd_resource type="Resource" script_class="Package" load_steps=15 format=3 uid="uid://c0c6kxk2ijxpm"]
+
+[ext_resource type="Script" uid="uid://d35d7a8qck1v6" path="res://scripts/data/attribute/attribute.gd" id="1_a4e6b"]
+[ext_resource type="Script" uid="uid://c7b7oib6ri5ue" path="res://scripts/data/modifier/modifier.gd" id="2_luuvo"]
+[ext_resource type="Script" uid="uid://c2ii476865sad" path="res://scripts/data/package/package_modifier.gd" id="3_e8i34"]
+[ext_resource type="Script" uid="uid://c2n6mepcsogtt" path="res://scripts/data/condition/condition_duration.gd" id="3_luuvo"]
+[ext_resource type="Script" uid="uid://c7hg8gj6nc3ko" path="res://scripts/data/package/package_add_modifier.gd" id="4_525pp"]
+[ext_resource type="Script" uid="uid://c3mb44nay6to1" path="res://scripts/data/package/package.gd" id="6_uc748"]
+
+[sub_resource type="Resource" id="Resource_c7iuc"]
+resource_name = "equipment/@[slot]/name"
+script = ExtResource("1_a4e6b")
+base_string_value = "TestWeapon"
+metadata/_custom_type_script = "uid://d35d7a8qck1v6"
+
+[sub_resource type="Resource" id="Resource_og1ky"]
+resource_name = "equipment/@[slot]/type"
+script = ExtResource("1_a4e6b")
+base_string_value = "weapon"
+metadata/_custom_type_script = "uid://d35d7a8qck1v6"
+
+[sub_resource type="Resource" id="Resource_c1k42"]
+resource_name = "@[slot]"
+script = ExtResource("1_a4e6b")
+base_string_value = "weapon"
+metadata/_custom_type_script = "uid://d35d7a8qck1v6"
+
+[sub_resource type="Resource" id="Resource_e8i34"]
+resource_name = "15 seconds"
+script = ExtResource("3_luuvo")
+duration = 15
+metadata/_custom_type_script = "uid://c2n6mepcsogtt"
+
+[sub_resource type="Resource" id="Resource_rtp6c"]
+resource_name = "+20%"
+script = ExtResource("2_luuvo")
+mode = 2
+value = 1.2
+metadata/_custom_type_script = "uid://c7b7oib6ri5ue"
+
+[sub_resource type="Resource" id="Resource_4vhjs"]
+resource_name = "stats/attack"
+script = ExtResource("4_525pp")
+modifier = SubResource("Resource_rtp6c")
+metadata/_custom_type_script = "uid://c7hg8gj6nc3ko"
+
+[sub_resource type="Resource" id="Resource_ro5ie"]
+resource_name = "+20%"
+script = ExtResource("2_luuvo")
+mode = 2
+value = 1.25
+metadata/_custom_type_script = "uid://c7b7oib6ri5ue"
+
+[sub_resource type="Resource" id="Resource_drlpj"]
+resource_name = "stats/attack/ice"
+script = ExtResource("4_525pp")
+modifier = SubResource("Resource_ro5ie")
+metadata/_custom_type_script = "uid://c7hg8gj6nc3ko"
+
+[resource]
+resource_name = "Test Weapon"
+script = ExtResource("6_uc748")
+attributes = Array[ExtResource("1_a4e6b")]([SubResource("Resource_c7iuc"), SubResource("Resource_og1ky"), SubResource("Resource_c1k42")])
+modifiers = Array[ExtResource("3_e8i34")]([SubResource("Resource_4vhjs"), SubResource("Resource_drlpj")])
+condition = SubResource("Resource_e8i34")
+metadata/_custom_type_script = "uid://c3mb44nay6to1"

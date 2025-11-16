@@ -1,0 +1,11 @@
+[gd_scene load_steps=3 format=3 uid="uid://n56pcg2q4pye"]
+
+[ext_resource type="Script" uid="uid://dp18lwdoalkrp" path="res://nodes/DataNode.gd" id="1_lhixu"]
+[ext_resource type="Resource" uid="uid://dmndbf0hjnm5e" path="res://data/test1/test_character.tres" id="2_c02jm"]
+
+[node name="Node2D" type="Node2D" unique_id=1043304207]
+
+[node name="DataNode" type="Node" parent="." unique_id=998874460]
+script = ExtResource("1_lhixu")
+definition = ExtResource("2_c02jm")
+metadata/_custom_type_script = "uid://dp18lwdoalkrp"

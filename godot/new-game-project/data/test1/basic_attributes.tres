@@ -1,0 +1,23 @@
+[gd_resource type="Resource" script_class="Package" load_steps=7 format=3 uid="uid://dapl3xgxg3kaa"]
+
+[ext_resource type="Script" uid="uid://d35d7a8qck1v6" path="res://scripts/data/attribute/attribute.gd" id="1_g2p3a"]
+[ext_resource type="Script" uid="uid://c2ii476865sad" path="res://scripts/data/package/package_modifier.gd" id="2_bq6sx"]
+[ext_resource type="Script" uid="uid://c7b7oib6ri5ue" path="res://scripts/data/modifier/modifier.gd" id="2_vnka5"]
+[ext_resource type="Script" uid="uid://c3mb44nay6to1" path="res://scripts/data/package/package.gd" id="3_vnka5"]
+
+[sub_resource type="Resource" id="Resource_t5ksj"]
+resource_name = "stats/basic/level"
+script = ExtResource("1_g2p3a")
+base_value = 1.0
+metadata/_custom_type_script = "uid://d35d7a8qck1v6"
+
+[sub_resource type="Resource" id="Resource_bq6sx"]
+resource_name = "stats/basic/attack"
+script = ExtResource("1_g2p3a")
+base_value = 1.0
+metadata/_custom_type_script = "uid://d35d7a8qck1v6"
+
+[resource]
+script = ExtResource("3_vnka5")
+attributes = Array[ExtResource("1_g2p3a")]([SubResource("Resource_t5ksj"), SubResource("Resource_bq6sx")])
+metadata/_custom_type_script = "uid://c3mb44nay6to1"

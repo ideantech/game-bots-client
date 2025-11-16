@@ -1,0 +1,77 @@
+class_name DataRoot extends Resource
+
+static var EVENT_TICK: String = 'tick'
+
+var events: DynamicSignalCollection = DynamicSignalCollection.new()
+var attributes_map: Dictionary[String, Attribute] = {}
+
+@export var attributes: Array[Attribute] = []
+@export var packages: Array[Package] = []
+
+
+func initialize_resource():
+	var temp_attributes = self.attributes
+	for attr in temp_attributes:
+		self.add_attribute(attr)
+
+	var temp_packages = self.packages
+	self.packages = []
+	for pkg in temp_packages:
+		self.add_package(pkg)
+
+func find_attribute(name: String) -> Attribute:
+	var index = attributes.find_custom(func (a: Attribute):
+		return a.name == name
+	)
+	if index == -1:
+		return null
+	return attributes[index]
+
+func add_attribute(attr: Attribute):
+	attr.root = self
+	self.attributes.push_back(attr)
+	self.attributes_map.set(attr.resource_name, attr);
+	attr.update()
+	pass
+
+func add_attribute_as(attr: Attribute, name: String):
+	attr.root = self
+	attr.name = name
+	self.attributes.push_back(attr)
+	self.attributes_map.set(name, attr);
+	attr.update()
+
+func add_package(package: Package):
+	package.root = self
+
+	var regex = RegEx.new()
+	regex.compile("@\\[(.*)\\]")
+
+	# attributes
+	for attr in package.attributes:
+		var failed := false
+		var add_as := attr.resource_name
+
+		if attr.resource_name.begins_with('@'):
+			continue
+
+		for result in regex.search_all(attr.resource_name):
+			var self_attr = package.find_attribute('@' + result.get_string(1))
+			if self_attr == null:
+				failed = true
+				break
+
+			var value_attr = self_attr.value
+			add_as = add_as.replace('@[' + result.get_string(1) + ']', value_attr)
+
+		if failed:
+			continue
+
+		self.add_attribute_as(attr, add_as)
+
+	# package modifiers
+	for mod in package.modifiers:
+		mod.apply_to(self, package)
+			
+
+	self.packages.push_back(package)
