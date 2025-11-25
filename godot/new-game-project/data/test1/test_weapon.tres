@@ -39,7 +39,7 @@ value = 1.2
 metadata/_custom_type_script = "uid://c7b7oib6ri5ue"
 
 [sub_resource type="Resource" id="Resource_4vhjs"]
-resource_name = "stats/attack"
+resource_name = "stats/basic/attack"
 script = ExtResource("4_525pp")
 modifier = SubResource("Resource_rtp6c")
 metadata/_custom_type_script = "uid://c7hg8gj6nc3ko"

@@ -1,0 +1,173 @@
+[gd_scene load_steps=31 format=3 uid="uid://un2aftlf8awo"]
+
+[ext_resource type="Script" uid="uid://b44cq36yldpnn" path="res://nodes/AnimatorNode.gd" id="1_r11yb"]
+[ext_resource type="Script" uid="uid://cp055nc8smmvb" path="res://nodes/AnimationTreeInterface.gd" id="2_6xks6"]
+[ext_resource type="SpriteFrames" uid="uid://crjku58yesbmv" path="res://data/sprites/new_sprite_frames.tres" id="3_vfy7m"]
+
+[sub_resource type="Animation" id="Animation_r11yb"]
+resource_name = "idle"
+loop_mode = 1
+
+[sub_resource type="Animation" id="Animation_n0vec"]
+resource_name = "idle_up"
+
+[sub_resource type="Animation" id="Animation_vfy7m"]
+resource_name = "run_down"
+loop_mode = 1
+
+[sub_resource type="Animation" id="Animation_eelvs"]
+resource_name = "run_up"
+
+[sub_resource type="Animation" id="Animation_f3uvf"]
+resource_name = "walk_down"
+length = 1.5
+loop_mode = 1
+tracks/0/type = "method"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0.33333334, 1),
+"transitions": PackedFloat32Array(1, 1),
+"values": [{
+"args": ["step"],
+"method": &"emit_animation_event"
+}, {
+"args": ["step"],
+"method": &"emit_animation_event"
+}]
+}
+
+[sub_resource type="Animation" id="Animation_nobaw"]
+resource_name = "walk_up"
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_6xks6"]
+_data = {
+&"idle_down": SubResource("Animation_r11yb"),
+&"idle_up": SubResource("Animation_n0vec"),
+&"run_down": SubResource("Animation_vfy7m"),
+&"run_up": SubResource("Animation_eelvs"),
+&"walk_down": SubResource("Animation_f3uvf"),
+&"walk_up": SubResource("Animation_nobaw")
+}
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_n0vec"]
+animation = &"idle_up"
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_eelvs"]
+animation = &"idle_down"
+
+[sub_resource type="AnimationNodeBlendSpace1D" id="AnimationNodeBlendSpace1D_vfy7m"]
+blend_point_0/node = SubResource("AnimationNodeAnimation_n0vec")
+blend_point_0/pos = 1.0
+blend_point_1/node = SubResource("AnimationNodeAnimation_eelvs")
+blend_point_1/pos = -1.0
+blend_mode = 1
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_nobaw"]
+animation = &"run_up"
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_ha8wc"]
+animation = &"run_down"
+
+[sub_resource type="AnimationNodeBlendSpace1D" id="AnimationNodeBlendSpace1D_f3uvf"]
+blend_point_0/node = SubResource("AnimationNodeAnimation_nobaw")
+blend_point_0/pos = 1.0
+blend_point_1/node = SubResource("AnimationNodeAnimation_ha8wc")
+blend_point_1/pos = -1.0
+blend_mode = 1
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_vfy7m"]
+animation = &"walk_down"
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_f3uvf"]
+animation = &"walk_up"
+
+[sub_resource type="AnimationNodeBlendSpace1D" id="AnimationNodeBlendSpace1D_n0vec"]
+blend_point_0/node = SubResource("AnimationNodeAnimation_vfy7m")
+blend_point_0/pos = -1.0
+blend_point_1/node = SubResource("AnimationNodeAnimation_f3uvf")
+blend_point_1/pos = 1.0
+blend_mode = 1
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_eelvs"]
+advance_mode = 2
+advance_expression = "is_walking == true and is_running == false
+"
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_f3uvf"]
+advance_mode = 2
+advance_expression = "is_walking == false and is_running == false"
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_nobaw"]
+advance_mode = 2
+advance_expression = "is_walking == false and is_running == false
+"
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_ha8wc"]
+advance_mode = 2
+advance_expression = "is_running == true"
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_ge1b2"]
+advance_mode = 2
+advance_expression = "is_running == false and is_walking == true
+"
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_jvkvo"]
+advance_mode = 2
+advance_expression = "is_running == true
+
+"
+
+[sub_resource type="AnimationNodeStateMachine" id="AnimationNodeStateMachine_f3uvf"]
+states/End/position = Vector2(675, 107)
+states/Run/node = SubResource("AnimationNodeBlendSpace1D_f3uvf")
+states/Run/position = Vector2(433, 213)
+states/Start/position = Vector2(173, 107)
+states/Walk/node = SubResource("AnimationNodeBlendSpace1D_n0vec")
+states/Walk/position = Vector2(433, 107)
+transitions = ["Start", "Walk", SubResource("AnimationNodeStateMachineTransition_eelvs"), "Walk", "End", SubResource("AnimationNodeStateMachineTransition_f3uvf"), "Run", "End", SubResource("AnimationNodeStateMachineTransition_nobaw"), "Start", "Run", SubResource("AnimationNodeStateMachineTransition_ha8wc"), "Run", "Walk", SubResource("AnimationNodeStateMachineTransition_ge1b2"), "Walk", "Run", SubResource("AnimationNodeStateMachineTransition_jvkvo")]
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_n0vec"]
+advance_mode = 2
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_3872k"]
+advance_mode = 2
+advance_expression = "is_walking == true or is_running == true
+"
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_vfy7m"]
+advance_mode = 2
+advance_expression = "is_running == false and is_walking == false
+"
+
+[sub_resource type="AnimationNodeStateMachine" id="AnimationNodeStateMachine_r11yb"]
+states/End/position = Vector2(794, 100)
+states/Idle/node = SubResource("AnimationNodeBlendSpace1D_vfy7m")
+states/Idle/position = Vector2(380, 100)
+states/Movement/node = SubResource("AnimationNodeStateMachine_f3uvf")
+states/Movement/position = Vector2(554, 100)
+transitions = ["Start", "Idle", SubResource("AnimationNodeStateMachineTransition_n0vec"), "Idle", "Movement", SubResource("AnimationNodeStateMachineTransition_3872k"), "Movement", "Idle", SubResource("AnimationNodeStateMachineTransition_vfy7m")]
+
+[node name="Test" type="Node2D" unique_id=1117967281]
+script = ExtResource("1_r11yb")
+uses_horizontal_facing = false
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="." unique_id=1838768889]
+libraries = {
+&"": SubResource("AnimationLibrary_6xks6")
+}
+
+[node name="AnimationTree" type="AnimationTree" parent="." unique_id=547554500]
+tree_root = SubResource("AnimationNodeStateMachine_r11yb")
+anim_player = NodePath("../AnimationPlayer")
+parameters/Idle/blend_position = 0.0
+parameters/Movement/Run/blend_position = 0.0
+parameters/Movement/Walk/blend_position = 0.0
+script = ExtResource("2_6xks6")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=376983399]
+sprite_frames = ExtResource("3_vfy7m")
+animation = &"idle_down"

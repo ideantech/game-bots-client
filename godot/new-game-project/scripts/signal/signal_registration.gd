@@ -5,8 +5,8 @@ var callable: Callable
 var sig: Signal
 
 func release():
-    if not self.is_bound:
-        return
-    
-    self.sig.disconnect(callable)
-    self.is_bound = false
+	if not self.is_bound:
+		return
+	
+	self.sig.disconnect(callable)
+	self.is_bound = false

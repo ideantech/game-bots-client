@@ -1,0 +1,17 @@
+[gd_scene load_steps=2 format=3 uid="uid://xv5lo41ir8qf"]
+
+[ext_resource type="PackedScene" uid="uid://n56pcg2q4pye" path="res://data/test1/node_2d.tscn" id="1_dawxu"]
+
+[node name="Testing" type="Node2D" unique_id=235472932]
+
+[node name="Character" parent="." unique_id=1881503207 instance=ExtResource("1_dawxu")]
+position = Vector2(178, 153)
+
+[node name="MiniHuman" parent="Character" index="1" unique_id=1117967281]
+is_facing_left = false
+is_facing_up = false
+
+[node name="Movement" parent="Character" index="2" unique_id=666311435]
+direction = Vector2(1, 0)
+
+[editable path="Character"]

@@ -9,6 +9,22 @@ var attributes_map: Dictionary[String, Attribute] = {}
 @export var packages: Array[Package] = []
 
 
+func on(event: String, callable: Callable, flags: int = 0):
+	if not has_user_signal(event):
+		add_user_signal(event)
+		
+	connect(event, callable, flags)
+	
+func off(event: String, callable: Callable):
+	if not has_user_signal(event): return
+	
+	disconnect(event, callable)
+
+func emit(event: String):
+	if not has_user_signal(event): return
+	
+	emit_signal(event)
+
 func initialize_resource():
 	var temp_attributes = self.attributes
 	for attr in temp_attributes:
@@ -18,6 +34,12 @@ func initialize_resource():
 	self.packages = []
 	for pkg in temp_packages:
 		self.add_package(pkg)
+
+func get_attribute_value(name: String, def: Variant) -> Variant:
+	var attr := self.find_attribute(name)
+	if attr == null:
+		return def
+	return attr.value
 
 func find_attribute(name: String) -> Attribute:
 	var index = attributes.find_custom(func (a: Attribute):

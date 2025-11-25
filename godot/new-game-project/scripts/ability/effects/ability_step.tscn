@@ -1,0 +1,7 @@
+[gd_scene load_steps=2 format=3 uid="uid://btktpr7s2dvs6"]
+
+[ext_resource type="Script" uid="uid://cpu2q38kgb7w4" path="res://scripts/ability/effects/ability_step.gd" id="1_2mp3b"]
+
+[node name="AbilityStep" type="Node2D" unique_id=1872821101]
+script = ExtResource("1_2mp3b")
+auto_finish = false

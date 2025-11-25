@@ -3,9 +3,13 @@ class_name Modifier extends Resource
 var attribute: Attribute
 
 enum ModifierType {
-    REPLACE,
-    ADDITIVE,
-    MULTIPLICATIVE
+	REPLACE,
+	ADDITIVE,
+	MULTIPLICATIVE,
+	
+	REPLACE_STRING,
+	ADDITIVE_STRING,
+	MULTIPLICATIVE_STRING
 }
 
 @export var mode: ModifierType = ModifierType.REPLACE
@@ -15,6 +19,14 @@ enum ModifierType {
 @export var string_value: String
 
 func applyTo(_to):
-    if string_value != null:
-        return string_value
-    return value
+	if mode == ModifierType.REPLACE:
+		return value
+	elif mode == ModifierType.ADDITIVE:
+		return _to + value
+	elif mode == ModifierType.MULTIPLICATIVE:
+		return _to * value
+	elif mode == ModifierType.REPLACE_STRING:
+		return string_value
+	elif mode == ModifierType.ADDITIVE_STRING:
+		return _to + string_value
+	return value
