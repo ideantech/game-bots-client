@@ -1,0 +1,103 @@
+[gd_scene load_steps=16 format=4 uid="uid://iec8jf5wtfnw"]
+
+[ext_resource type="PackedScene" uid="uid://b8ds245mbw43h" path="res://data/rooms/Rm_TestLit.tscn" id="1_wpk1o"]
+[ext_resource type="Shader" uid="uid://vmlmgwd1s53o" path="res://data/rooms/all_white.gdshader" id="2_ljihj"]
+[ext_resource type="TileSet" uid="uid://btklbm4su2knb" path="res://data/tilesets/new_tile_set.tres" id="2_rgm12"]
+[ext_resource type="Shader" uid="uid://85lqk1q23faw" path="res://data/rooms/masked_texture.gdshader" id="4_dr1b6"]
+[ext_resource type="Texture2D" uid="uid://chcp4n2e5nmga" path="res://data/sprites/cone.png" id="4_ien1c"]
+[ext_resource type="Script" uid="uid://c3c3ya8xgh82n" path="res://data/rooms/LightTest.gd" id="4_o6e81"]
+[ext_resource type="PackedScene" uid="uid://n56pcg2q4pye" path="res://data/test1/node_2d.tscn" id="5_nowxe"]
+
+[sub_resource type="Gradient" id="Gradient_o6e81"]
+interpolation_mode = 1
+offsets = PackedFloat32Array(0.0035545023, 1)
+colors = PackedColorArray(1, 1, 1, 0.05490196, 0, 0, 0, 1)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_ien1c"]
+gradient = SubResource("Gradient_o6e81")
+fill = 1
+fill_from = Vector2(0.4905983, 0.50769234)
+fill_to = Vector2(0.6547009, 0.42564103)
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_dr1b6"]
+shader = ExtResource("2_ljihj")
+
+[sub_resource type="ViewportTexture" id="ViewportTexture_o6e81"]
+viewport_path = NodePath("VisiblityTest")
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_ien1c"]
+resource_local_to_scene = true
+shader = ExtResource("4_dr1b6")
+shader_parameter/mask_texture = SubResource("ViewportTexture_o6e81")
+
+[sub_resource type="ViewportTexture" id="ViewportTexture_dr1b6"]
+viewport_path = NodePath("LitViewport")
+
+[sub_resource type="ViewportTexture" id="ViewportTexture_wpk1o"]
+viewport_path = NodePath("LitViewport")
+
+[sub_resource type="ViewportTexture" id="ViewportTexture_ljihj"]
+viewport_path = NodePath("VisiblityTest")
+
+[node name="RmTest" type="Node2D" unique_id=1830493015]
+
+[node name="LitViewport" type="SubViewport" parent="." unique_id=155202679]
+
+[node name="Test" parent="LitViewport" unique_id=1765744828 instance=ExtResource("1_wpk1o")]
+
+[node name="Character" parent="LitViewport" unique_id=1881503207 instance=ExtResource("5_nowxe")]
+unique_name_in_owner = true
+
+[node name="FlashLight" type="PointLight2D" parent="LitViewport/Character" unique_id=794872441]
+unique_name_in_owner = true
+visible = false
+color = Color(1, 1, 1, 0.40784314)
+texture = ExtResource("4_ien1c")
+
+[node name="PlayerLight" type="PointLight2D" parent="LitViewport/Character" unique_id=1781415712]
+unique_name_in_owner = true
+visible = false
+texture = SubResource("GradientTexture2D_ien1c")
+
+[node name="VisiblityTest" type="SubViewport" parent="." unique_id=283642634]
+transparent_bg = true
+handle_input_locally = false
+render_target_update_mode = 4
+
+[node name="TileMapLayer" type="TileMapLayer" parent="VisiblityTest" unique_id=1442366344]
+texture_filter = 1
+material = SubResource("ShaderMaterial_dr1b6")
+tile_map_data = PackedByteArray("AAAAAAAAAAAuAAIAAAAAAAEAAAAuAAMAAAAAAAIAAAAuAAMAAAAAAAMAAAAuAAMAAAAAAAQAAAAuAAMAAAAAAAUAAAAuAAMAAAABAAAAAAAvAAIAAAACAAAAAAAvAAIAAAADAAAAAAAvAAIAAAAEAAAAAAAvAAIAAAAFAAAAAAAvAAIAAAAGAAAAAAAvAAIAAAAHAAAAAAAvAAIAAAAIAAAAAAAwAAIAAAAJAAAAAAAxAAIAAAAKAAAAAAAxAAIAAAALAAAAAAAxAAIAAAAMAAAAAAAxAAIAAAANAAAAAAAxAAIAAAAOAAAAAAAxAAIAAAAPAAAAAAAxAAIAAAAQAAAAAAAyAAIAAAAQAAEAAAAyAAMAAAAQAAIAAAAyAAMAAAAQAAMAAAAyAAMAAAAQAAQAAAAyAAMAAAAQAAUAAAAyAAMAAAAQAAYAAAAyAAMAAAAAAAYAAAAuAAMAAAABAAEAAAAvAAMAAAACAAEAAAAvAAMAAAADAAEAAAAvAAMAAAAEAAEAAAAvAAMAAAAFAAEAAAAvAAMAAAAGAAEAAAAvAAMAAAAHAAEAAAAvAAMAAAAIAAEAAAAwAAMAAAAJAAEAAAAvAAMAAAAKAAEAAAAvAAMAAAALAAEAAAAvAAMAAAAMAAEAAAAvAAMAAAANAAEAAAAvAAMAAAAOAAEAAAAvAAMAAAAPAAEAAAAvAAMAAAAIAAIAAAAwAAMAAAABAAIAAAAlAAIAAAABAAMAAAAlAAIAAAABAAQAAAAlAAIAAAABAAUAAAAlAAIAAAABAAYAAAAlAAIAAAACAAUAAAAlAAIAAAACAAQAAAAlAAIAAAACAAMAAAAlAAIAAAACAAIAAAAlAAIAAAADAAIAAAAlAAIAAAAEAAIAAAAlAAIAAAAFAAIAAAAlAAIAAAAGAAIAAAAlAAIAAAAHAAIAAAAlAAIAAAAHAAMAAAAlAAIAAAAGAAMAAAAlAAIAAAAFAAMAAAAlAAIAAAAEAAMAAAAlAAIAAAADAAMAAAAlAAIAAAACAAYAAAAlAAIAAAADAAYAAAAlAAIAAAAEAAYAAAAlAAIAAAAFAAYAAAAlAAIAAAAGAAYAAAAlAAIAAAAGAAUAAAAlAAIAAAAHAAUAAAAlAAIAAAAHAAQAAAAlAAIAAAAHAAYAAAAlAAIAAAAFAAUAAAAlAAIAAAAEAAUAAAAlAAIAAAAEAAQAAAAlAAIAAAAFAAQAAAAlAAIAAAAGAAQAAAAlAAIAAAADAAQAAAAlAAIAAAADAAUAAAAlAAIAAAAIAAQAAAAwAAMAAAAIAAMAAAAwAAMAAAAIAAUAAAAlAAIAAAAIAAYAAAAlAAIAAAAJAAIAAAAlAAIAAAAKAAIAAAAlAAIAAAALAAIAAAAlAAIAAAAMAAIAAAAlAAIAAAANAAIAAAAlAAIAAAAOAAIAAAAlAAIAAAAPAAIAAAAlAAIAAAAPAAMAAAAlAAIAAAAPAAQAAAAlAAIAAAAPAAUAAAAlAAIAAAAPAAYAAAAlAAIAAAAOAAYAAAAlAAIAAAANAAYAAAAlAAIAAAAMAAYAAAAlAAIAAAALAAYAAAAlAAIAAAAKAAYAAAAlAAIAAAAJAAYAAAAlAAIAAAAJAAUAAAAlAAIAAAAJAAQAAAAlAAIAAAAJAAMAAAAlAAIAAAAKAAMAAAAlAAIAAAALAAMAAAAlAAIAAAAMAAMAAAAlAAIAAAANAAMAAAAlAAIAAAAOAAMAAAAlAAIAAAAOAAQAAAAlAAIAAAAOAAUAAAAlAAIAAAANAAUAAAAlAAIAAAAMAAUAAAAlAAIAAAALAAUAAAAlAAIAAAAKAAUAAAAlAAIAAAAKAAQAAAAlAAIAAAALAAQAAAAlAAIAAAAMAAQAAAAlAAIAAAANAAQAAAAlAAIAAAAAAAcAAAAuAAIAAAABAAcAAAAvAAIAAAACAAcAAAAvAAIAAAADAAcAAAAvAAIAAAAEAAcAAAAvAAIAAAAFAAcAAAAvAAIAAAAGAAcAAAAvAAIAAAAHAAcAAAAvAAIAAAAIAAcAAAAvAAIAAAAJAAcAAAAvAAIAAAAKAAcAAAAvAAIAAAALAAcAAAAvAAIAAAAMAAcAAAAvAAIAAAANAAcAAAAvAAIAAAAOAAcAAAAvAAIAAAAPAAcAAAAvAAIAAAAQAAcAAAAyAAIAAAA=")
+tile_set = ExtResource("2_rgm12")
+
+[node name="Node2D" type="Node2D" parent="VisiblityTest" unique_id=1889383430]
+script = ExtResource("4_o6e81")
+
+[node name="Pivot" type="Node2D" parent="VisiblityTest/Node2D" unique_id=398168169]
+unique_name_in_owner = true
+
+[node name="PointLight2D" type="PointLight2D" parent="VisiblityTest/Node2D/Pivot" unique_id=786274056]
+unique_name_in_owner = true
+energy = 4.79
+blend_mode = 1
+shadow_enabled = true
+shadow_color = Color(0, 0, 0, 1)
+texture = ExtResource("4_ien1c")
+
+[node name="LitMasked" type="Sprite2D" parent="." unique_id=70175588]
+texture_filter = 1
+material = SubResource("ShaderMaterial_ien1c")
+position = Vector2(1040, 1032)
+scale = Vector2(4, 4)
+texture = SubResource("ViewportTexture_dr1b6")
+
+[node name="LitDebug" type="Sprite2D" parent="." unique_id=1849263718]
+position = Vector2(831, 286)
+texture = SubResource("ViewportTexture_wpk1o")
+
+[node name="VisDebug" type="Sprite2D" parent="." unique_id=954767647]
+position = Vector2(803, 372)
+texture = SubResource("ViewportTexture_ljihj")
+
+[node name="Camera2D" type="Camera2D" parent="." unique_id=2080149045]
+anchor_mode = 0

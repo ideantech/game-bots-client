@@ -1,0 +1,6 @@
+[gd_scene load_steps=2 format=3 uid="uid://c8glthwoxu11g"]
+
+[ext_resource type="Script" uid="uid://bych4qi6s0dgm" path="res://scripts/ability/DamageTaker/Abl_DamageTaker.gd" id="1_eq0ej"]
+
+[node name="AblDamageTaker" type="Node2D" unique_id=684938502]
+script = ExtResource("1_eq0ej")

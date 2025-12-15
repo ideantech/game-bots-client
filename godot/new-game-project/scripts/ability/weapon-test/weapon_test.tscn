@@ -1,8 +1,9 @@
-[gd_scene load_steps=4 format=3 uid="uid://b4iag6wyxcptb"]
+[gd_scene load_steps=5 format=3 uid="uid://b4iag6wyxcptb"]
 
 [ext_resource type="Texture2D" uid="uid://dqu4jspcr03be" path="res://data/sprites/test-weapon.png" id="1_d1ykm"]
 [ext_resource type="Script" uid="uid://brim21j85ra8f" path="res://scripts/ability/weapon-test/weapon-test.gd" id="1_yptrm"]
 [ext_resource type="AudioStream" uid="uid://bubhmjfipdaqu" path="res://data/sounds/Futuristic Shotgun Single Shot.wav" id="3_pg22r"]
+[ext_resource type="AudioStream" uid="uid://c5ukqtxmxybc0" path="res://data/sounds/hit1.ogg" id="4_ordkl"]
 
 [node name="WeaponTest" type="Node2D" unique_id=1921588486]
 script = ExtResource("1_yptrm")
@@ -13,12 +14,16 @@ script = ExtResource("1_yptrm")
 scale = Vector2(2, 2)
 texture = ExtResource("1_d1ykm")
 
-[node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="." unique_id=1087404007]
-stream = ExtResource("3_pg22r")
-volume_db = -11.805
-
-[node name="RayCast2D" type="RayCast2D" parent="." unique_id=1487873370]
+[node name="RayCast2D" type="RayCast2D" parent="Attachment" unique_id=1487873370]
 target_position = Vector2(197, 0)
 collision_mask = 4
 hit_from_inside = true
 collide_with_areas = true
+
+[node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="." unique_id=1087404007]
+stream = ExtResource("3_pg22r")
+volume_db = -11.805
+
+[node name="AudioHit" type="AudioStreamPlayer2D" parent="." unique_id=1315199834]
+stream = ExtResource("4_ordkl")
+volume_db = 9.679

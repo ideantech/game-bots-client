@@ -1,4 +1,4 @@
-[gd_scene load_steps=9 format=3 uid="uid://n56pcg2q4pye"]
+[gd_scene load_steps=11 format=3 uid="uid://n56pcg2q4pye"]
 
 [ext_resource type="Script" uid="uid://dp18lwdoalkrp" path="res://nodes/DataNode.gd" id="1_lhixu"]
 [ext_resource type="Script" uid="uid://behll5n5gr7g2" path="res://nodes/Index.gd" id="1_re3h8"]
@@ -9,12 +9,24 @@
 [ext_resource type="Script" uid="uid://bdxainbhw1bnv" path="res://nodes/PlayerMovementController.gd" id="6_ynung"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_qtntp"]
+radius = 14.035668
 
-[node name="Character" type="CharacterBody2D" unique_id=1881503207 node_paths=PackedStringArray("body", "data", "animator")]
+[sub_resource type="Gradient" id="Gradient_ynckt"]
+colors = PackedColorArray(1, 1, 1, 1, 0, 0, 0, 1)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_re3h8"]
+gradient = SubResource("Gradient_ynckt")
+fill = 1
+fill_from = Vector2(0.50769234, 0.52136755)
+fill_to = Vector2(0.83247864, 0.15555556)
+
+[node name="Character" type="CharacterBody2D" unique_id=1881503207 node_paths=PackedStringArray("body", "animator", "movement")]
+collision_layer = 2
 script = ExtResource("1_re3h8")
 body = NodePath(".")
-data = NodePath("Data")
 animator = NodePath("MiniHuman")
+movement = NodePath("Movement")
+definition = ExtResource("2_c02jm")
 
 [node name="Body" type="CollisionShape2D" parent="." unique_id=455501206]
 shape = SubResource("CircleShape2D_qtntp")
@@ -44,3 +56,11 @@ movement = NodePath("../Movement")
 data = NodePath("../Data")
 animator = NodePath("../MiniHuman")
 metadata/_custom_type_script = "uid://bdxainbhw1bnv"
+
+[node name="PointLight2D" type="PointLight2D" parent="." unique_id=474783938]
+visible = false
+position = Vector2(0, 1)
+shadow_enabled = true
+texture = SubResource("GradientTexture2D_re3h8")
+texture_scale = 3.0
+height = 32.0

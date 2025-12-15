@@ -3,7 +3,11 @@ extends Ability
 
 var sig_weapon_raised := SignalRegistration.new()
 var sig_weapon_lowered := SignalRegistration.new()
+
 @onready var attachment := $Attachment
+@onready var raycast: RayCast2D = $Attachment/RayCast2D
+@onready var audio := $AudioStreamPlayer2D
+@onready var audio_hit := $AudioHit
 
 func run():
 	auto_finish = false
@@ -12,8 +16,12 @@ func run():
 	var animator = index.animator
 	attach_to(animator.get_node('Weapon'), attachment)
 	
-	index.data.data.on('weapon-raised', _weapon_raised)
-	index.data.data.on('weapon-lowered', _weapon_lowered)
+	#index.signals.on2('weapon-raised', _weapon_raised)
+	#index.signals.on2('weapon-lowered', _weapon_lowered)
+	#index.signals.on2('weapon-fired', _weapon_fire)
+	index.signals.weapon_raised.connect(_weapon_raised)
+	index.signals.weapon_lowered.connect(_weapon_lowered)
+	index.signals.weapon_fired.connect(_weapon_fire)
 	
 	attachment.modulate.a = 0.0
 
@@ -29,7 +37,13 @@ func _weapon_lowered():
 	
 func _weapon_fire():
 	print('fired')
+	audio.play()
 	
+	if raycast.is_colliding():
+		audio_hit.play()
+		var hit = raycast.get_collider()
+		Utl_Damage.damage(index(), hit, 1, raycast.get_collision_point())
+
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:

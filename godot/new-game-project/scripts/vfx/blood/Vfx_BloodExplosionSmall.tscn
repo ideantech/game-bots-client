@@ -1,0 +1,38 @@
+[gd_scene load_steps=6 format=3 uid="uid://bdxo5cpvjqxll"]
+
+[ext_resource type="Texture2D" uid="uid://4if5wtyyp4wa" path="res://data/sprites/particles/pixel.png" id="1_h4jm2"]
+[ext_resource type="Script" uid="uid://by36uoroqsicp" path="res://scripts/vfx/Vfx_Simple.gd" id="1_vx4tv"]
+
+[sub_resource type="Curve" id="Curve_nk2cj"]
+_data = [Vector2(0.0037383176, 0.8571812), 0.0, 0.0, 0, 0, Vector2(1, 0.007234812), 0.0, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="CurveTexture" id="CurveTexture_vx4tv"]
+curve = SubResource("Curve_nk2cj")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_h4jm2"]
+particle_flag_disable_z = true
+angle_min = 1.0728835e-05
+angle_max = 360.00003
+direction = Vector3(0, 0, 0)
+spread = 180.0
+initial_velocity_min = 63.359997
+initial_velocity_max = 63.359997
+gravity = Vector3(0, 66, 0)
+damping_min = 70.170006
+damping_max = 85.26501
+scale_min = 2.0
+scale_max = 4.0
+color = Color(1, 0, 0, 1)
+alpha_curve = SubResource("CurveTexture_vx4tv")
+
+[node name="VfxBloodSplatterSmall" type="Node2D" unique_id=580550526]
+script = ExtResource("1_vx4tv")
+
+[node name="GPUParticles2D" type="GPUParticles2D" parent="." unique_id=499157288]
+emitting = false
+texture = ExtResource("1_h4jm2")
+lifetime = 0.5
+one_shot = true
+explosiveness = 1.0
+process_material = SubResource("ParticleProcessMaterial_h4jm2")

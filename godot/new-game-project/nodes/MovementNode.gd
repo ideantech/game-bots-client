@@ -20,6 +20,10 @@ func _ready() -> void:
 	_attr_walk_speed = data.data.find_attribute(DataNode.ATTR_WALK_SPEED)
 	_attr_run_speed = data.data.find_attribute(DataNode.ATTR_RUN_SPEED)
 
+	
+func disable():
+	set_physics_process(false)
+
 
 func _physics_process(delta: float) -> void:
 	if direction.length_squared() > 0:

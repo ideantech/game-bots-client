@@ -17,6 +17,8 @@ signal animation_event(e: String)
 @export var is_walking: bool = false
 @export var is_running: bool = false
 @export var is_damaged: bool = false
+@export var is_killed: bool = false
+
 @export var is_facing_left: bool = false:
 	get:
 		return is_facing_left
@@ -54,11 +56,6 @@ func _ready() -> void:
 	animation_tree['parameters/Idle/blend_position'] = -1.0
 	animation_tree["parameters/Movement/Run/blend_position"] = -1.0
 	animation_tree["parameters/Movement/Walk/blend_position"] = -1.0
-
-
-# Called every frame. 'delta' is the elapsed time since the previous frame.
-func _process(delta: float) -> void:
-	pass
 
 
 func emit_animation_event(s: String):

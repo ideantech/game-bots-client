@@ -18,8 +18,11 @@ var is_cancelled: bool = false
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
-	if auto_start:
-		start()
+	# created via editor, so wait until next frame before starting
+	if owner != null:
+		await get_tree().process_frame
+		
+	start()
 
 func cancel():
 	is_cancelled = true
@@ -46,6 +49,9 @@ func run():
 	print('Ability:run(B)')
 
 
-# Called every frame. 'delta' is the elapsed time since the previous frame.
-func _process(delta: float) -> void:
-	pass
+#region "convenience methods"
+
+func index() -> IndexNode:
+	return ((user as Node) as IndexNode)
+
+#endregion

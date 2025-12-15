@@ -1,4 +1,4 @@
-[gd_scene load_steps=40 format=3 uid="uid://dkdjfd8wfyqp6"]
+[gd_scene load_steps=48 format=3 uid="uid://dkdjfd8wfyqp6"]
 
 [ext_resource type="Script" uid="uid://b44cq36yldpnn" path="res://nodes/AnimatorNode.gd" id="1_q578m"]
 [ext_resource type="Script" uid="uid://cp055nc8smmvb" path="res://nodes/AnimationTreeInterface.gd" id="2_enhok"]
@@ -24,6 +24,13 @@ blend_point_0/pos = 1.0
 blend_point_1/node = SubResource("AnimationNodeAnimation_eelvs")
 blend_point_1/pos = -1.0
 blend_mode = 1
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_11ng8"]
+animation = &"killed_down"
+
+[sub_resource type="AnimationNodeBlendSpace1D" id="AnimationNodeBlendSpace1D_11ng8"]
+blend_point_0/node = SubResource("AnimationNodeAnimation_11ng8")
+blend_point_0/pos = 0.0
 
 [sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_nobaw"]
 animation = &"run_up"
@@ -120,15 +127,37 @@ switch_mode = 2
 advance_mode = 2
 advance_expression = "is_walking == true or is_running == true"
 
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_8nvtp"]
+advance_mode = 2
+advance_expression = "is_killed == true"
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_e0hul"]
+advance_mode = 2
+advance_expression = "is_killed == true"
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_ctm4m"]
+advance_mode = 2
+advance_expression = "is_killed == true"
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_6sxtk"]
+advance_mode = 2
+advance_expression = "is_killed == false and is_walking == false and is_running == false"
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_qt7yw"]
+advance_mode = 2
+advance_expression = "is_killed == false and (is_walking == true or is_running == true)"
+
 [sub_resource type="AnimationNodeStateMachine" id="AnimationNodeStateMachine_r11yb"]
 states/Damaged/node = SubResource("AnimationNodeBlendSpace1D_n8kqh")
-states/Damaged/position = Vector2(458, 233)
+states/Damaged/position = Vector2(380.24, 289.52478)
 states/End/position = Vector2(794, 100)
 states/Idle/node = SubResource("AnimationNodeBlendSpace1D_vfy7m")
 states/Idle/position = Vector2(380, 100)
+states/Killed/node = SubResource("AnimationNodeBlendSpace1D_11ng8")
+states/Killed/position = Vector2(601.328, 289.856)
 states/Movement/node = SubResource("AnimationNodeStateMachine_f3uvf")
-states/Movement/position = Vector2(554, 100)
-transitions = ["Start", "Idle", SubResource("AnimationNodeStateMachineTransition_n0vec"), "Idle", "Movement", SubResource("AnimationNodeStateMachineTransition_3872k"), "Movement", "Idle", SubResource("AnimationNodeStateMachineTransition_vfy7m"), "Idle", "Damaged", SubResource("AnimationNodeStateMachineTransition_n8kqh"), "Damaged", "Idle", SubResource("AnimationNodeStateMachineTransition_11ng8"), "Movement", "Damaged", SubResource("AnimationNodeStateMachineTransition_ntsy6"), "Damaged", "Movement", SubResource("AnimationNodeStateMachineTransition_jkoqx")]
+states/Movement/position = Vector2(602, 99.68)
+transitions = ["Start", "Idle", SubResource("AnimationNodeStateMachineTransition_n0vec"), "Idle", "Movement", SubResource("AnimationNodeStateMachineTransition_3872k"), "Movement", "Idle", SubResource("AnimationNodeStateMachineTransition_vfy7m"), "Idle", "Damaged", SubResource("AnimationNodeStateMachineTransition_n8kqh"), "Damaged", "Idle", SubResource("AnimationNodeStateMachineTransition_11ng8"), "Movement", "Damaged", SubResource("AnimationNodeStateMachineTransition_ntsy6"), "Damaged", "Movement", SubResource("AnimationNodeStateMachineTransition_jkoqx"), "Idle", "Killed", SubResource("AnimationNodeStateMachineTransition_8nvtp"), "Movement", "Killed", SubResource("AnimationNodeStateMachineTransition_e0hul"), "Damaged", "Killed", SubResource("AnimationNodeStateMachineTransition_ctm4m"), "Killed", "Idle", SubResource("AnimationNodeStateMachineTransition_6sxtk"), "Killed", "Movement", SubResource("AnimationNodeStateMachineTransition_qt7yw")]
 
 [sub_resource type="Animation" id="Animation_n8kqh"]
 length = 0.001
@@ -216,6 +245,48 @@ tracks/1/keys = {
 
 [sub_resource type="Animation" id="Animation_n0vec"]
 resource_name = "idle_up"
+
+[sub_resource type="Animation" id="Animation_jkoqx"]
+resource_name = "killed_down"
+length = 2.0
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("AnimationPlayerInterface/Facing/AnimatedSprite2D:animation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [&"defeated-down"]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("AnimationPlayerInterface/Facing/AnimatedSprite2D:frame")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.3, 0.6, 0.9, 1.2, 1.5, 1.8),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1),
+"update": 1,
+"values": [0, 1, 2, 3, 4, 5, 5]
+}
+tracks/2/type = "method"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath(".")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(2),
+"transitions": PackedFloat32Array(1),
+"values": [{
+"args": ["killed_end"],
+"method": &"emit_animation_event"
+}]
+}
 
 [sub_resource type="Animation" id="Animation_11ng8"]
 resource_name = "run_down"
@@ -320,6 +391,7 @@ _data = {
 &"damaged_down": SubResource("Animation_ntsy6"),
 &"idle_down": SubResource("Animation_r11yb"),
 &"idle_up": SubResource("Animation_n0vec"),
+&"killed_down": SubResource("Animation_jkoqx"),
 &"run_down": SubResource("Animation_11ng8"),
 &"run_up": SubResource("Animation_eelvs"),
 &"walk_down": SubResource("Animation_f3uvf"),
@@ -338,6 +410,7 @@ advance_expression_base_node = NodePath("..")
 anim_player = NodePath("../AnimationPlayerInterface/AnimationPlayer")
 parameters/Damaged/blend_position = -1.0
 parameters/Idle/blend_position = -1.0
+parameters/Killed/blend_position = 0.0
 parameters/Movement/Run/blend_position = -1.0
 parameters/Movement/Walk/blend_position = -1.0
 script = ExtResource("2_enhok")

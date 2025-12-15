@@ -1,17 +1,56 @@
-[gd_scene load_steps=2 format=3 uid="uid://xv5lo41ir8qf"]
+[gd_scene load_steps=9 format=3 uid="uid://xv5lo41ir8qf"]
 
+[ext_resource type="Script" uid="uid://cqowu88huy6j8" path="res://data/test1/CameraTest.gd" id="1_bjgxq"]
 [ext_resource type="PackedScene" uid="uid://n56pcg2q4pye" path="res://data/test1/node_2d.tscn" id="1_dawxu"]
+[ext_resource type="PackedScene" uid="uid://un2qithae8gg" path="res://prefabs/ui/console/UI_Console.tscn" id="1_tga2a"]
+[ext_resource type="PackedScene" uid="uid://brrmlo7kmqpjk" path="res://data/test1/target.tscn" id="2_8etla"]
+[ext_resource type="Script" uid="uid://dg8ykwgm1iqnn" path="res://scripts/ability/DamageTaker/Abl_Invincible.gd" id="3_5y8ql"]
+[ext_resource type="PackedScene" uid="uid://db4peho4yic3" path="res://data/rooms/test/RM_Hallway_1x2.tscn" id="3_akx6u"]
+[ext_resource type="PackedScene" uid="uid://cbevuljllwwdo" path="res://prefabs/doors/OBJ_Door1.tscn" id="4_akx6u"]
+[ext_resource type="PackedScene" uid="uid://dfjjyont72jy3" path="res://data/rooms/test/RM_Empty_1x1.tscn" id="5_iu6pp"]
 
 [node name="Testing" type="Node2D" unique_id=235472932]
+
+[node name="Camera2D" type="Camera2D" parent="." unique_id=1288647731 node_paths=PackedStringArray("target")]
+position = Vector2(287, 158)
+limit_left = 0
+limit_top = 0
+limit_right = 1024
+limit_bottom = 1024
+editor_draw_limits = true
+script = ExtResource("1_bjgxq")
+target = NodePath("../Character")
+
+[node name="Rm_Test1" parent="." unique_id=1620910929 instance=ExtResource("5_iu6pp")]
+scale = Vector2(4, 4)
+
+[node name="Rm_Test2" parent="." unique_id=1979284258 instance=ExtResource("3_akx6u")]
+position = Vector2(0, 320)
+scale = Vector2(4, 4)
+
+[node name="OBJ_VerticalDoor1" parent="." unique_id=2008348332 node_paths=PackedStringArray("room1", "room2") instance=ExtResource("4_akx6u")]
+position = Vector2(160, 393)
+room1 = NodePath("../Rm_Test1")
+room2 = NodePath("../Rm_Test2")
 
 [node name="Character" parent="." unique_id=1881503207 instance=ExtResource("1_dawxu")]
 position = Vector2(178, 153)
 
-[node name="MiniHuman" parent="Character" index="1" unique_id=1117967281]
-is_facing_left = false
-is_facing_up = false
+[node name="Target" parent="." unique_id=841781327 instance=ExtResource("2_8etla")]
+position = Vector2(454, 179)
 
-[node name="Movement" parent="Character" index="2" unique_id=666311435]
-direction = Vector2(1, 0)
+[node name="Abl_Invincible" type="Node" parent="Target" unique_id=417414996 node_paths=PackedStringArray("user", "target")]
+script = ExtResource("3_5y8ql")
+user = NodePath("..")
+target = NodePath("..")
+auto_finish = false
+metadata/_custom_type_script = "uid://dg8ykwgm1iqnn"
 
-[editable path="Character"]
+[node name="UI_Console" parent="." unique_id=2063452006 instance=ExtResource("1_tga2a")]
+anchor_right = 0.0
+anchor_bottom = 0.0
+offset_left = 336.0
+offset_top = 16.0
+offset_right = 600.0
+offset_bottom = 200.0
+scale = Vector2(2.3200002, 2.3200002)

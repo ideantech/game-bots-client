@@ -1,4 +1,4 @@
-[gd_resource type="Resource" script_class="Package" load_steps=9 format=3 uid="uid://dapl3xgxg3kaa"]
+[gd_resource type="Resource" script_class="Package" load_steps=13 format=3 uid="uid://dapl3xgxg3kaa"]
 
 [ext_resource type="Script" uid="uid://d35d7a8qck1v6" path="res://scripts/data/attribute/attribute.gd" id="1_g2p3a"]
 [ext_resource type="Script" uid="uid://c2ii476865sad" path="res://scripts/data/package/package_modifier.gd" id="2_bq6sx"]
@@ -29,7 +29,29 @@ script = ExtResource("1_g2p3a")
 base_value = 120.0
 metadata/_custom_type_script = "uid://d35d7a8qck1v6"
 
+[sub_resource type="Resource" id="Resource_6aj0r"]
+resource_name = "stats/health/current"
+script = ExtResource("1_g2p3a")
+base_value = 3.0
+metadata/_custom_type_script = "uid://d35d7a8qck1v6"
+
+[sub_resource type="Resource" id="Resource_naee1"]
+resource_name = "stats/health/max"
+script = ExtResource("1_g2p3a")
+base_value = 3.0
+metadata/_custom_type_script = "uid://d35d7a8qck1v6"
+
+[sub_resource type="Resource" id="Resource_4endf"]
+resource_name = "stats/resist/physical"
+script = ExtResource("1_g2p3a")
+metadata/_custom_type_script = "uid://d35d7a8qck1v6"
+
+[sub_resource type="Resource" id="Resource_ry5ba"]
+resource_name = "stats/resist/physicalflat"
+script = ExtResource("1_g2p3a")
+metadata/_custom_type_script = "uid://d35d7a8qck1v6"
+
 [resource]
 script = ExtResource("3_vnka5")
-attributes = Array[ExtResource("1_g2p3a")]([SubResource("Resource_t5ksj"), SubResource("Resource_bq6sx"), SubResource("Resource_vnka5"), SubResource("Resource_symra")])
+attributes = Array[ExtResource("1_g2p3a")]([SubResource("Resource_t5ksj"), SubResource("Resource_bq6sx"), SubResource("Resource_vnka5"), SubResource("Resource_symra"), SubResource("Resource_6aj0r"), SubResource("Resource_naee1"), SubResource("Resource_4endf"), SubResource("Resource_ry5ba")])
 metadata/_custom_type_script = "uid://c3mb44nay6to1"

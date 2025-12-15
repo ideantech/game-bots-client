@@ -3,8 +3,10 @@ class_name DataRoot extends Resource
 static var EVENT_TICK: String = 'tick'
 
 var events: DynamicSignalCollection = DynamicSignalCollection.new()
+var signals: Utl_Signals
 var attributes_map: Dictionary[String, Attribute] = {}
 
+# todo: OPTIMIZATION: provide a dictionary backing and or ability to flatten to direct references
 @export var attributes: Array[Attribute] = []
 @export var packages: Array[Package] = []
 
@@ -20,10 +22,13 @@ func off(event: String, callable: Callable):
 	
 	disconnect(event, callable)
 
-func emit(event: String):
+func emit(event: String, args):
 	if not has_user_signal(event): return
 	
-	emit_signal(event)
+	if args.size() == 0:
+		emit_signal(event)
+	elif args.size() == 1:
+		emit_signal(event, args[0])
 
 func initialize_resource():
 	var temp_attributes = self.attributes

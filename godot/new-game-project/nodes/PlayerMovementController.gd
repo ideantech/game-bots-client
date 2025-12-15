@@ -27,12 +27,14 @@ func _process(delta: float) -> void:
 	if raise and not _weapon_raised:
 		_weapon_raised = true
 		var parent: IndexNode = get_parent()
-		parent.data.data.emit_signal('weapon-raised')
+		#parent.signals.emit('weapon-raised')
+		parent.signals.weapon_raised.emit()
 		
 	elif not raise and _weapon_raised:
 		_weapon_raised = false
 		var parent: IndexNode = get_parent()
-		parent.data.data.emit_signal('weapon-lowered')
+		#parent.signals.emit('weapon-lowered')
+		parent.signals.weapon_lowered.emit()
 	
 	var x = 0
 	var y = 0
@@ -48,6 +50,11 @@ func _process(delta: float) -> void:
 			movement.is_running = false
 	else:
 		movement.is_running = false
+		
+		if Input.is_action_just_pressed('ui_fire'):
+			var parent: IndexNode = get_parent()
+			#parent.signals.emit('weapon-fired')
+			parent.signals.weapon_fired.emit()
 	
 	if not face_mouse:
 		if x < 0:

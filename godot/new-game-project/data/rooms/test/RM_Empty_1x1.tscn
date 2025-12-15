@@ -1,0 +1,52 @@
+[gd_scene load_steps=8 format=4 uid="uid://dfjjyont72jy3"]
+
+[ext_resource type="Script" uid="uid://bmd4kp3v3oa6y" path="res://scripts/lighting/LightingRoom.gd" id="1_4n6ch"]
+[ext_resource type="TileSet" uid="uid://c63qyirqi0spv" path="res://data/tilesets/mini-fantasy/mini-fantasy-scifi.tres" id="3_468ff"]
+[ext_resource type="Script" uid="uid://bxj88a4qhuij" path="res://scripts/lighting/LightingBlocker.gd" id="3_grjib"]
+[ext_resource type="Script" uid="uid://wu3m4410x2gl" path="res://scripts/lighting/LightingAmbient.gd" id="4_yjbm2"]
+[ext_resource type="Script" uid="uid://dxqfq424x82ak" path="res://scripts/lighting/LightingDetector.gd" id="5_yjbm2"]
+
+[sub_resource type="PlaceholderTexture2D" id="PlaceholderTexture2D_4n6ch"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_4n6ch"]
+size = Vector2(80, 80)
+
+[node name="Rm_Test1" type="Node2D" unique_id=1620910929]
+texture_filter = 1
+script = ExtResource("1_4n6ch")
+
+[node name="Floor" type="TileMapLayer" parent="." unique_id=1354989416]
+position = Vector2(3.8146973e-06, 0)
+tile_map_data = PackedByteArray("AAABAAMAAAAFAB0AAAACAAMAAAAGAB0AAAADAAMAAAAGAB0AAAAEAAMAAAAGAB0AAAAFAAMAAAAGAB0AAAAGAAMAAAAGAB0AAAAHAAMAAAAGAB0AAAAIAAMAAAAHAB0AAAABAAQAAAAFAB4AAAABAAUAAAAFAB4AAAABAAYAAAAFAB4AAAABAAcAAAAFAB4AAAAIAAcAAAAHAB4AAAAIAAYAAAAHAB4AAAAIAAUAAAAHAB4AAAAIAAQAAAAHAB4AAAAHAAQAAAAGAB4AAAAGAAQAAAAGAB4AAAAFAAQAAAAGAB4AAAAEAAQAAAAGAB4AAAADAAQAAAAGAB4AAAACAAQAAAAGAB4AAAACAAUAAAAGAB4AAAACAAYAAAAGAB4AAAACAAcAAAAGAB4AAAADAAcAAAAGAB4AAAAHAAcAAAAGAB4AAAAGAAcAAAAGAB4AAAAFAAcAAAAGAB4AAAAEAAcAAAAGAB4AAAADAAUAAAAGAB4AAAADAAYAAAAGAB4AAAAEAAYAAAAGAB4AAAAEAAUAAAAGAB4AAAAFAAYAAAAGAB4AAAAFAAUAAAAGAB4AAAAGAAYAAAAGAB4AAAAHAAYAAAAGAB4AAAAHAAUAAAAGAB4AAAAGAAUAAAAGAB4AAAABAAgAAAAFAB8AAAACAAgAAAAGAB8AAAADAAgAAAAGAB8AAAAEAAgAAAAGAB8AAAAFAAgAAAAGAB8AAAAGAAgAAAAGAB8AAAAHAAgAAAAGAB8AAAAIAAgAAAAHAB8AAAAEAAkAAAAGAB4AAAAFAAkAAAAGAB4AAAA=")
+tile_set = ExtResource("3_468ff")
+
+[node name="Walls" type="TileMapLayer" parent="." unique_id=1093635663]
+tile_map_data = PackedByteArray("AAAAAAAAAAANAAUAAAAAAAEAAAANAAgAAAAAAAIAAAANAAcAAAAAAAMAAAANAAgAAAAAAAQAAAANAAcAAAAAAAUAAAANAAgAAAAAAAYAAAANAAsAAAAAAAcAAAANAAsAAAAAAAgAAAANAAwAAAAJAAgAAAATAAwAAAAJAAcAAAATAAsAAAAJAAYAAAATAAgAAAAJAAUAAAATAAcAAAAJAAQAAAATAAgAAAAJAAMAAAATAAcAAAAJAAIAAAATAAgAAAAJAAEAAAATAAcAAAAJAAAAAAATAAUAAAAIAAAAAAAPAAUAAAAHAAAAAAAOAAUAAAAGAAAAAAAPAAUAAAAFAAAAAAAOAAUAAAAEAAAAAAAPAAUAAAADAAAAAAAOAAUAAAACAAAAAAAPAAUAAAABAAAAAAAOAAUAAAABAAEAAAAFAAYAAAABAAIAAAAFAAcAAAACAAEAAAAGAAYAAAACAAIAAAAGAAcAAAAHAAEAAAAIAAoAAAAHAAIAAAAIAAsAAAAIAAEAAAAJAAoAAAAIAAIAAAAJAAsAAAAGAAEAAAAJAAYAAAAGAAIAAAAJAAcAAAAFAAEAAAAIAAYAAAAEAAEAAAAIAAYAAAADAAEAAAAIAAYAAAADAAIAAAAIAAYAAAAEAAIAAAAIAAYAAAAFAAIAAAAIAAYAAAAAAAkAAAANAA0AAAAGAAkAAAATABEAAAAHAAkAAAAOAA0AAAAIAAkAAAAOAA0AAAAJAAkAAAATAA0AAAADAAkAAAANABEAAAACAAkAAAAOAA0AAAABAAkAAAAOAA0AAAA=")
+tile_set = ExtResource("3_468ff")
+
+[node name="Blocker" type="Sprite2D" parent="." unique_id=667434432]
+visible = false
+modulate = Color(0, 0, 0, 1)
+z_index = 2
+position = Vector2(40, 40)
+scale = Vector2(80, 80)
+texture = SubResource("PlaceholderTexture2D_4n6ch")
+script = ExtResource("3_grjib")
+
+[node name="Ambient" type="Sprite2D" parent="." unique_id=133893329]
+visible = false
+modulate = Color(0, 0, 0, 1)
+z_index = 1
+position = Vector2(40, 40)
+scale = Vector2(80, 80)
+texture = SubResource("PlaceholderTexture2D_4n6ch")
+script = ExtResource("4_yjbm2")
+
+[node name="Detector" type="Area2D" parent="." unique_id=419422207]
+collision_layer = 0
+collision_mask = 2
+script = ExtResource("5_yjbm2")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Detector" unique_id=2134956576]
+position = Vector2(40, 40)
+shape = SubResource("RectangleShape2D_4n6ch")

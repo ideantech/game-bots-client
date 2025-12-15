@@ -1,0 +1,106 @@
+[gd_scene load_steps=10 format=4 uid="uid://b8ds245mbw43h"]
+
+[ext_resource type="TileSet" uid="uid://btklbm4su2knb" path="res://data/tilesets/new_tile_set.tres" id="1_wpk1o"]
+[ext_resource type="Texture2D" uid="uid://cn30uw4shnjfp" path="res://data/sprites/Minifantasy_TownsProps.png" id="2_43doo"]
+[ext_resource type="Texture2D" uid="uid://4q335xxs2p" path="res://icon.svg" id="3_k6bvc"]
+
+[sub_resource type="Gradient" id="Gradient_wpk1o"]
+offsets = PackedFloat32Array(0, 0.6847247)
+colors = PackedColorArray(1, 1, 1, 1, 0, 0, 0, 1)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_rgm12"]
+gradient = SubResource("Gradient_wpk1o")
+fill = 1
+fill_from = Vector2(0.4974359, 0.4940171)
+
+[sub_resource type="Animation" id="Animation_43doo"]
+resource_name = "idle"
+loop_mode = 2
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:energy")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [1.0, 1.65]
+}
+
+[sub_resource type="Animation" id="Animation_k6bvc"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:energy")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [1.0]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_k6bvc"]
+_data = {
+&"RESET": SubResource("Animation_k6bvc"),
+&"idle": SubResource("Animation_43doo")
+}
+
+[sub_resource type="OccluderPolygon2D" id="OccluderPolygon2D_k6bvc"]
+polygon = PackedVector2Array(59.1, -64, -59, -64, -63.8, -59, -64, 61, -60.3, 64, 59.6, 64, 63.9, 59, 64, -61.1)
+
+[node name="Test" type="Node2D" unique_id=1765744828]
+
+[node name="TileMapLayer" type="TileMapLayer" parent="." unique_id=1451576227]
+texture_filter = 1
+tile_map_data = PackedByteArray("AAAAAAAAAAAuAAIAAAAAAAEAAAAuAAMAAAAAAAIAAAAuAAMAAAAAAAMAAAAuAAMAAAAAAAQAAAAuAAMAAAAAAAUAAAAuAAMAAAABAAAAAAAvAAIAAAACAAAAAAAvAAIAAAADAAAAAAAvAAIAAAAEAAAAAAAvAAIAAAAFAAAAAAAvAAIAAAAGAAAAAAAvAAIAAAAHAAAAAAAvAAIAAAAIAAAAAAAvAAIAAAAJAAAAAAAxAAIAAAAKAAAAAAAxAAIAAAALAAAAAAAxAAIAAAAMAAAAAAAxAAIAAAANAAAAAAAxAAIAAAAOAAAAAAAxAAIAAAAPAAAAAAAxAAIAAAAQAAAAAAAyAAIAAAAQAAEAAAAyAAMAAAAQAAIAAAAyAAMAAAAQAAMAAAAyAAMAAAAQAAQAAAAyAAMAAAAQAAUAAAAyAAMAAAAQAAYAAAAyAAMAAAAAAAYAAAAuAAMAAAABAAEAAAAvAAMAAAACAAEAAAAvAAMAAAADAAEAAAAvAAMAAAAEAAEAAAAvAAMAAAAFAAEAAAAvAAMAAAAGAAEAAAAvAAMAAAAHAAEAAAAvAAMAAAAIAAEAAAAxAAMAAAAJAAEAAAAvAAMAAAAKAAEAAAAvAAMAAAALAAEAAAAvAAMAAAAMAAEAAAAvAAMAAAANAAEAAAAvAAMAAAAOAAEAAAAvAAMAAAAPAAEAAAAvAAMAAAAIAAIAAAAmAAIAAAABAAIAAAAlAAIAAAABAAMAAAAlAAIAAAABAAQAAAAlAAIAAAABAAUAAAAlAAIAAAABAAYAAAAlAAIAAAACAAUAAAAlAAIAAAACAAQAAAAlAAIAAAACAAMAAAAlAAIAAAACAAIAAAAlAAIAAAADAAIAAAAlAAIAAAAEAAIAAAAlAAIAAAAFAAIAAAAlAAIAAAAGAAIAAAAlAAIAAAAHAAIAAAAlAAIAAAAHAAMAAAAmAAIAAAAGAAMAAAAlAAIAAAAFAAMAAAAlAAIAAAAEAAMAAAAlAAIAAAADAAMAAAAlAAIAAAACAAYAAAAlAAIAAAADAAYAAAAlAAIAAAAEAAYAAAAlAAIAAAAFAAYAAAAlAAIAAAAGAAYAAAAlAAIAAAAGAAUAAAAlAAIAAAAHAAUAAAAmAAIAAAAHAAQAAAAmAAIAAAAHAAYAAAAmAAIAAAAFAAUAAAAlAAIAAAAEAAUAAAAlAAIAAAAEAAQAAAAlAAIAAAAFAAQAAAAlAAIAAAAGAAQAAAAlAAIAAAADAAQAAAAlAAIAAAADAAUAAAAlAAIAAAAIAAQAAAAmAAIAAAAIAAMAAAAmAAIAAAAIAAUAAAAmAAIAAAAIAAYAAAAmAAIAAAAJAAIAAAAlAAIAAAAKAAIAAAAlAAIAAAALAAIAAAAlAAIAAAAMAAIAAAAlAAIAAAANAAIAAAAlAAIAAAAOAAIAAAAlAAIAAAAPAAIAAAAlAAIAAAAPAAMAAAAlAAIAAAAPAAQAAAAlAAIAAAAPAAUAAAAlAAIAAAAPAAYAAAAlAAIAAAAOAAYAAAAlAAIAAAANAAYAAAAlAAIAAAAMAAYAAAAlAAIAAAALAAYAAAAlAAIAAAAKAAYAAAAlAAIAAAAJAAYAAAAmAAIAAAAJAAUAAAAmAAIAAAAJAAQAAAAmAAIAAAAJAAMAAAAmAAIAAAAKAAMAAAAlAAIAAAALAAMAAAAlAAIAAAAMAAMAAAAlAAIAAAANAAMAAAAlAAIAAAAOAAMAAAAlAAIAAAAOAAQAAAAlAAIAAAAOAAUAAAAlAAIAAAANAAUAAAAlAAIAAAAMAAUAAAAlAAIAAAALAAUAAAAlAAIAAAAKAAUAAAAlAAIAAAAKAAQAAAAlAAIAAAALAAQAAAAlAAIAAAAMAAQAAAAlAAIAAAANAAQAAAAlAAIAAAAAAAcAAAAuAAIAAAABAAcAAAAvAAIAAAACAAcAAAAvAAIAAAADAAcAAAAvAAIAAAAEAAcAAAAvAAIAAAAFAAcAAAAvAAIAAAAGAAcAAAAvAAIAAAAHAAcAAAAvAAIAAAAIAAcAAAAvAAIAAAAJAAcAAAAvAAIAAAAKAAcAAAAvAAIAAAALAAcAAAAvAAIAAAAMAAcAAAAvAAIAAAANAAcAAAAvAAIAAAAOAAcAAAAvAAIAAAAPAAcAAAAvAAIAAAAQAAcAAAAyAAIAAAA=")
+tile_set = ExtResource("1_wpk1o")
+
+[node name="PointLight2D" type="PointLight2D" parent="." unique_id=725256397]
+position = Vector2(52, 18)
+shadow_enabled = true
+texture = SubResource("GradientTexture2D_rgm12")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="PointLight2D" unique_id=1948223892]
+libraries = {
+&"": SubResource("AnimationLibrary_k6bvc")
+}
+autoplay = &"idle"
+
+[node name="PointLight2D2" type="PointLight2D" parent="." unique_id=821100716]
+position = Vector2(83, 18)
+shadow_enabled = true
+texture = SubResource("GradientTexture2D_rgm12")
+
+[node name="CanvasModulate" type="CanvasModulate" parent="." unique_id=757478708]
+color = Color(0, 0, 0, 0.9843137)
+
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=1313583355]
+texture_filter = 1
+position = Vector2(83, 13)
+texture = ExtResource("2_43doo")
+region_enabled = true
+region_rect = Rect2(34.88781, 118.99311, 18.269646, 25.924889)
+
+[node name="Sprite2D2" type="Sprite2D" parent="." unique_id=21853471]
+texture_filter = 1
+position = Vector2(52, 12)
+texture = ExtResource("2_43doo")
+region_enabled = true
+region_rect = Rect2(34.88781, 118.99311, 18.269646, 25.924889)
+
+[node name="DoorTest" type="Node2D" parent="." unique_id=2054465767]
+position = Vector2(69, 33)
+
+[node name="Top" type="Sprite2D" parent="DoorTest" unique_id=1398755145]
+position = Vector2(-0.99999994, 0)
+scale = Vector2(0.07999635, 0.5199994)
+texture = ExtResource("3_k6bvc")
+
+[node name="LightOccluder2D" type="LightOccluder2D" parent="DoorTest/Top" unique_id=1271050837]
+scale = Vector2(0.99999994, 0.99999994)
+occluder = SubResource("OccluderPolygon2D_k6bvc")
