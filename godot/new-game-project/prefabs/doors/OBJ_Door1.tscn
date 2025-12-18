@@ -30,10 +30,9 @@ tracks/1/keys = {
 "values": [0]
 }
 
-[sub_resource type="Animation" id="Animation_5m44w"]
-resource_name = "unpowered"
-length = 2.0
-loop_mode = 1
+[sub_resource type="Animation" id="Animation_4ob8b"]
+resource_name = "open"
+length = 0.6
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
@@ -44,7 +43,7 @@ tracks/0/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 1,
-"values": [&"unpowered"]
+"values": [&"open"]
 }
 tracks/1/type = "value"
 tracks/1/imported = false
@@ -53,10 +52,10 @@ tracks/1/path = NodePath("AnimatedSprite2D:frame")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/keys = {
-"times": PackedFloat32Array(0, 1),
-"transitions": PackedFloat32Array(1, 1),
+"times": PackedFloat32Array(0, 0.1, 0.2, 0.3, 0.4, 0.5, 0.6),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1),
 "update": 1,
-"values": [0, 1]
+"values": [0, 1, 2, 3, 4, 5, 5]
 }
 
 [sub_resource type="Animation" id="Animation_e1msh"]
@@ -88,9 +87,10 @@ tracks/1/keys = {
 "values": [0, 1]
 }
 
-[sub_resource type="Animation" id="Animation_4ob8b"]
-resource_name = "open"
-length = 0.6
+[sub_resource type="Animation" id="Animation_5m44w"]
+resource_name = "unpowered"
+length = 2.0
+loop_mode = 1
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
@@ -101,7 +101,7 @@ tracks/0/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 1,
-"values": [&"open"]
+"values": [&"unpowered"]
 }
 tracks/1/type = "value"
 tracks/1/imported = false
@@ -110,10 +110,10 @@ tracks/1/path = NodePath("AnimatedSprite2D:frame")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/keys = {
-"times": PackedFloat32Array(0, 0.1, 0.2, 0.3, 0.4, 0.5, 0.6),
-"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1),
+"times": PackedFloat32Array(0, 1),
+"transitions": PackedFloat32Array(1, 1),
 "update": 1,
-"values": [0, 1, 2, 3, 4, 5, 5]
+"values": [0, 1]
 }
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_tga2a"]
@@ -135,6 +135,7 @@ animation_player = NodePath("AnimationPlayer")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=647991730]
 texture_filter = 1
+position = Vector2(0, 21)
 sprite_frames = ExtResource("1_5m44w")
 animation = &"open"
 centered = false
@@ -146,6 +147,7 @@ libraries = {
 }
 
 [node name="Area2D" type="Area2D" parent="." unique_id=1056391111]
+position = Vector2(0, 22.25)
 collision_layer = 0
 collision_mask = 2
 

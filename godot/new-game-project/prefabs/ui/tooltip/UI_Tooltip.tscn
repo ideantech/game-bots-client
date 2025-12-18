@@ -1,0 +1,24 @@
+[gd_scene load_steps=3 format=3 uid="uid://ct5quar3qi5a7"]
+
+[ext_resource type="FontFile" uid="uid://662io4msdefo" path="res://assets/fonts/Dust 7.ttf" id="1_ofbp0"]
+[ext_resource type="Script" uid="uid://m5xlxiwcmw8m" path="res://prefabs/ui/tooltip/UI_Tooltip.gd" id="1_tnwk0"]
+
+[node name="UI_Tooltip" type="Control" unique_id=230161262]
+layout_mode = 3
+anchors_preset = 0
+scale = Vector2(4, 4)
+script = ExtResource("1_tnwk0")
+
+[node name="lblTooltip" type="Label" parent="." unique_id=376547536]
+unique_name_in_owner = true
+texture_filter = 1
+layout_mode = 0
+offset_left = -80.0
+offset_top = -10.0
+offset_right = 80.0
+offset_bottom = 17.0
+pivot_offset_ratio = Vector2(0.5, 0.5)
+theme_override_fonts/font = ExtResource("1_ofbp0")
+text = "[Tooltip]
+"
+horizontal_alignment = 1

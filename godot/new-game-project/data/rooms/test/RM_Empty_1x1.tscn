@@ -27,7 +27,7 @@ tile_set = ExtResource("3_468ff")
 [node name="Blocker" type="Sprite2D" parent="." unique_id=667434432]
 visible = false
 modulate = Color(0, 0, 0, 1)
-z_index = 2
+z_index = 101
 position = Vector2(40, 40)
 scale = Vector2(80, 80)
 texture = SubResource("PlaceholderTexture2D_4n6ch")
@@ -36,7 +36,7 @@ script = ExtResource("3_grjib")
 [node name="Ambient" type="Sprite2D" parent="." unique_id=133893329]
 visible = false
 modulate = Color(0, 0, 0, 1)
-z_index = 1
+z_index = 100
 position = Vector2(40, 40)
 scale = Vector2(80, 80)
 texture = SubResource("PlaceholderTexture2D_4n6ch")

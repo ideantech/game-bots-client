@@ -23,16 +23,24 @@ func _process(delta: float) -> void:
 	if not enabled:
 		return
 	
+	
+	var parent: IndexNode = get_parent()
+	if Input.is_action_just_pressed('player_use'):
+		if parent.useable_user != null && parent.useable_user.has_target():
+			#parent.useable_user.get_target().activate(parent)
+			parent.useable_user.use(get_parent())
+			return
+	
 	var raise = Input.is_action_pressed('ui_raise_weapon')
 	if raise and not _weapon_raised:
 		_weapon_raised = true
-		var parent: IndexNode = get_parent()
+		#var parent: IndexNode = get_parent()
 		#parent.signals.emit('weapon-raised')
 		parent.signals.weapon_raised.emit()
 		
 	elif not raise and _weapon_raised:
 		_weapon_raised = false
-		var parent: IndexNode = get_parent()
+		#var parent: IndexNode = get_parent()
 		#parent.signals.emit('weapon-lowered')
 		parent.signals.weapon_lowered.emit()
 	
@@ -52,7 +60,7 @@ func _process(delta: float) -> void:
 		movement.is_running = false
 		
 		if Input.is_action_just_pressed('ui_fire'):
-			var parent: IndexNode = get_parent()
+			#var parent: IndexNode = get_parent()
 			#parent.signals.emit('weapon-fired')
 			parent.signals.weapon_fired.emit()
 	

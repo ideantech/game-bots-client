@@ -79,41 +79,33 @@ grow_vertical = 2
 layout_mode = 2
 size_flags_vertical = 3
 
-[node name="cntScroll" type="ScrollContainer" parent="Control/VBoxContainer/MarginContainer" unique_id=1956075901]
-unique_name_in_owner = true
+[node name="ScrollContainer" type="ScrollContainer" parent="Control/VBoxContainer/MarginContainer" unique_id=1956075901]
 layout_mode = 2
 
-[node name="VBoxContainer" type="VBoxContainer" parent="Control/VBoxContainer/MarginContainer/cntScroll" unique_id=642750804]
+[node name="VBoxContainer" type="VBoxContainer" parent="Control/VBoxContainer/MarginContainer/ScrollContainer" unique_id=642750804]
 layout_mode = 2
 size_flags_horizontal = 3
 theme_override_constants/separation = 0
 
-[node name="cntOutput" type="VBoxContainer" parent="Control/VBoxContainer/MarginContainer/cntScroll/VBoxContainer" unique_id=1295051451]
+[node name="cntOutput" type="VBoxContainer" parent="Control/VBoxContainer/MarginContainer/ScrollContainer/VBoxContainer" unique_id=1295051451]
 unique_name_in_owner = true
 layout_mode = 2
 
-[node name="UI_ConsoleLabel" parent="Control/VBoxContainer/MarginContainer/cntScroll/VBoxContainer" unique_id=2027307510 instance=ExtResource("3_0sr4k")]
+[node name="UI_ConsoleLabel" parent="Control/VBoxContainer/MarginContainer/ScrollContainer/VBoxContainer" unique_id=2027307510 instance=ExtResource("3_0sr4k")]
 visible = false
 layout_mode = 2
 
-[node name="cntPrompt" type="HBoxContainer" parent="Control/VBoxContainer/MarginContainer/cntScroll/VBoxContainer" unique_id=1226917418]
-unique_name_in_owner = true
+[node name="Prompt" type="HBoxContainer" parent="Control/VBoxContainer/MarginContainer/ScrollContainer/VBoxContainer" unique_id=1226917418]
 layout_mode = 2
 theme_override_constants/separation = 0
 
-[node name="HBoxContainer" type="HBoxContainer" parent="Control/VBoxContainer/MarginContainer/cntScroll/VBoxContainer/cntPrompt" unique_id=451579052]
-layout_mode = 2
-size_flags_horizontal = 3
-theme_override_constants/separation = 0
-
-[node name="lblPrompt" type="Label" parent="Control/VBoxContainer/MarginContainer/cntScroll/VBoxContainer/cntPrompt/HBoxContainer" unique_id=454587746]
-unique_name_in_owner = true
+[node name="Label" type="Label" parent="Control/VBoxContainer/MarginContainer/ScrollContainer/VBoxContainer/Prompt" unique_id=454587746]
 texture_filter = 1
 layout_mode = 2
 theme_override_fonts/font = ExtResource("2_oa00u")
 text = ">"
 
-[node name="txtInput" type="LineEdit" parent="Control/VBoxContainer/MarginContainer/cntScroll/VBoxContainer/cntPrompt/HBoxContainer" unique_id=1296171641]
+[node name="txtInput" type="LineEdit" parent="Control/VBoxContainer/MarginContainer/ScrollContainer/VBoxContainer/Prompt" unique_id=1296171641]
 unique_name_in_owner = true
 texture_filter = 1
 layout_mode = 2
@@ -126,4 +118,4 @@ flat = true
 caret_blink = true
 caret_force_displayed = true
 
-[connection signal="text_submitted" from="Control/VBoxContainer/MarginContainer/cntScroll/VBoxContainer/cntPrompt/HBoxContainer/txtInput" to="." method="_on_line_edit_text_submitted"]
+[connection signal="text_submitted" from="Control/VBoxContainer/MarginContainer/ScrollContainer/VBoxContainer/Prompt/txtInput" to="." method="_on_line_edit_text_submitted"]

@@ -59,6 +59,8 @@ body = NodePath("..")
 movement = NodePath("../Movement")
 data = NodePath("../Data")
 animator = NodePath("../MiniHuman")
+enabled = null
+face_mouse = null
 metadata/_custom_type_script = "uid://bdxainbhw1bnv"
 
 [node name="PointLight2D" type="PointLight2D" parent="." unique_id=474783938]

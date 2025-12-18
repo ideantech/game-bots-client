@@ -13,6 +13,11 @@ enum OverrideBoolean {
 @export var detector: Area2D
 @export var animation_player: AnimationPlayer
 
+@export_group('Configuration')
+@export var can_close: bool = true
+@export var can_open: bool = true
+@export var proximity_detection: bool = true
+
 @export_group('Overrides')
 @export var override_powered: OverrideBoolean = OverrideBoolean.NotApplicable
 @export var override_opened: OverrideBoolean = OverrideBoolean.NotApplicable
@@ -27,12 +32,18 @@ func _ready():
 	configure_startup()
 
 func _body_entered(body: Node2D):
+	if not proximity_detection: return
+	
 	try_open()
 
 func _body_exited(body: Node2D):
+	if not proximity_detection: return
+	
 	try_close()
 
 func try_open():
+	if not can_open:
+		return
 	if not is_powered():
 		return
 	if _is_open:
@@ -51,6 +62,8 @@ func try_open():
 			_is_open = true
 
 func try_close():
+	if not can_close:
+		return
 	if not is_powered():
 		return
 	if not _is_open:

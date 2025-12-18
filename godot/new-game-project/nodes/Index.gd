@@ -6,6 +6,7 @@ extends Node
 @export var animator: AnimatorNode
 @export var movement: MovementNode
 @export var definition: DataRoot
+@export var useable_user: SCR_UseableUser
 
 var data: DataRoot
 @onready var signals: Utl_Signals = Utl_Signals.new()

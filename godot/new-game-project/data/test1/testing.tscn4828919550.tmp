@@ -1,4 +1,4 @@
-[gd_scene load_steps=15 format=3 uid="uid://xv5lo41ir8qf"]
+[gd_scene load_steps=14 format=3 uid="uid://xv5lo41ir8qf"]
 
 [ext_resource type="Script" uid="uid://cqowu88huy6j8" path="res://data/test1/CameraTest.gd" id="1_bjgxq"]
 [ext_resource type="PackedScene" uid="uid://n56pcg2q4pye" path="res://data/test1/node_2d.tscn" id="1_dawxu"]
@@ -19,17 +19,10 @@ ability_path = "res://scripts/ability/useable/ABL_OpenDoor.gd"
 target = NodePath("../OBJ_VerticalDoor1")
 metadata/_custom_type_script = "uid://dois1t6pq6bsy"
 
-[sub_resource type="Resource" id="Resource_ocgj8"]
-script = ExtResource("9_ocgj8")
-ability_path = "res://scripts/ability/useable/ABL_CloseDoor.gd"
-target = NodePath("../OBJ_VerticalDoor1")
-metadata/_custom_type_script = "uid://dois1t6pq6bsy"
-
 [node name="Testing" type="Node2D" unique_id=235472932]
 
 [node name="Camera2D" type="Camera2D" parent="." unique_id=1288647731 node_paths=PackedStringArray("target")]
 position = Vector2(287, 158)
-zoom = Vector2(1.5, 1.5)
 limit_left = 0
 limit_top = 0
 limit_right = 1024
@@ -74,15 +67,16 @@ z_as_relative = false
 position = Vector2(160, 312)
 room1 = NodePath("../../Rm_Test1")
 room2 = NodePath("../../Rm_Test2")
+proximity_detection = false
 
 [node name="OBJ_SimpleConsole" parent="Entities" unique_id=1562656428 instance=ExtResource("11_775s5")]
 z_as_relative = false
 position = Vector2(88, 128)
 ability_config = SubResource("Resource_shcje")
-deactivate_ability_config = SubResource("Resource_ocgj8")
 tooltip_text = "Open Door"
-activate_on_proximity = false
-is_toggle = true
+activate_on_proximity = null
+activate_once = true
+activate_for_each = null
 
 [node name="UI_Console" parent="." unique_id=2063452006 instance=ExtResource("1_tga2a")]
 anchors_preset = 0

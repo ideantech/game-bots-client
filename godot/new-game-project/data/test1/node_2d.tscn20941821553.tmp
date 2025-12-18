@@ -71,7 +71,7 @@ height = 32.0
 
 [node name="UseableUser" type="Area2D" parent="." unique_id=149538445]
 collision_layer = 16
-collision_mask = 8
+collision_mask = 0
 script = ExtResource("8_bygiw")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="UseableUser" unique_id=1309121795]
