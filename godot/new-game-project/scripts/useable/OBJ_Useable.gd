@@ -1,9 +1,15 @@
 class_name OBJ_Useable
 extends Node2D
 
+@export_group("Activation")
+@export var target_user: bool = false
+@export var target: Node2D = null
+@export_file_path('*.tscn', '*.gd') var activate_ability: String
+@export_file_path('*.tscn', '*.gd') var deactivate_ability: String
+
 @export_group('Configuration')
-@export var ability_config: RES_AbilityConfig
-@export var deactivate_ability_config: RES_AbilityConfig
+#@export var ability_config: RES_AbilityConfig
+#@export var deactivate_ability_config: RES_AbilityConfig
 @export var tooltip_location: Node2D
 @export var detector: Area2D
 @export var tooltip_text: String = ''
@@ -74,28 +80,40 @@ func _on_area_2d_body_exited(body: Node2D) -> void:
 		_tooltip.queue_free()
 		_tooltip = null
 
+func try_run_ability(file: String, used_by: Node2D) -> Ability:
+	var inst = null
+	
+	if file.ends_with('.gd'):
+		var cls = load(file)
+		inst = cls.new()
+
+	elif file.ends_with('.tscn'):
+		var pkg = load(file)
+		inst = pkg.instantiate()
+
+	if inst != null:
+		inst.user = used_by
+		inst.target = target
+		used_by.add_child(inst)
+
+	return inst
+
 func activate(used_by: Node2D):
 	_activated = true
-	if ability_config == null:
-		push_error('obj_useable: no ability configured at ' + str(get_path()))
-		return
+	
+	try_run_ability(activate_ability, used_by)
 	
 	if _animation_player != null:
 		_animation_player.play('activated')
-	ability_config.activate(used_by, self)
 	
 func deactivate(used_by: Node2D):
 	_activated = false
 	
-	if deactivate_ability_config == null:
-		push_error('obj_useable: no ability configured at ' + str(get_path()))
-		return
-		
+	try_run_ability(deactivate_ability, used_by)
+	
 	if _animation_player != null:
 		_animation_player.play('deactivated')
-	deactivate_ability_config.activate(used_by, self)
-	pass
-
+	
 func use(used_by: Node2D):
 	if is_toggle:
 		if not _activated:

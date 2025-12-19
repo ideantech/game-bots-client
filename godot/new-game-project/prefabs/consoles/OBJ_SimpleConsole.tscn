@@ -1,4 +1,4 @@
-[gd_scene load_steps=10 format=3 uid="uid://do6qlv1q8psih"]
+[gd_scene load_steps=11 format=3 uid="uid://do6qlv1q8psih"]
 
 [ext_resource type="Script" uid="uid://bbvecdsyj6xix" path="res://scripts/useable/OBJ_Useable.gd" id="1_4fffu"]
 [ext_resource type="Texture2D" uid="uid://bvor6c0epp1sc" path="res://assets/mini-fantasy/scifi/Props/Props.png" id="2_573xm"]
@@ -15,7 +15,7 @@ loop_mode = 1
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
-tracks/0/path = NodePath("Indicator:modulate")
+tracks/0/path = NodePath("Node2D/Indicator:modulate")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
@@ -30,7 +30,7 @@ length = 0.001
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
-tracks/0/path = NodePath("Indicator:modulate")
+tracks/0/path = NodePath("Node2D/Indicator:modulate")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
@@ -47,7 +47,7 @@ loop_mode = 1
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
-tracks/0/path = NodePath("Indicator:modulate")
+tracks/0/path = NodePath("Node2D/Indicator:modulate")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
@@ -63,6 +63,9 @@ _data = {
 &"activated": SubResource("Animation_0rqom"),
 &"deactivated": SubResource("Animation_gv8u1")
 }
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_gv8u1"]
+size = Vector2(64, 40)
 
 [node name="OBJ_SimpleConsole" type="Node2D" unique_id=1562656428 node_paths=PackedStringArray("tooltip_location", "detector")]
 script = ExtResource("1_4fffu")
@@ -91,7 +94,12 @@ shape = SubResource("RectangleShape2D_573xm")
 [node name="Tooltip" type="Node2D" parent="." unique_id=406660901]
 position = Vector2(0, -72)
 
-[node name="Indicator" type="Sprite2D" parent="." unique_id=14998413]
+[node name="Node2D" type="Node2D" parent="." unique_id=1761628376]
+z_as_relative = false
+
+[node name="Indicator" type="Sprite2D" parent="Node2D" unique_id=14998413]
+z_index = 200
+z_as_relative = false
 texture_filter = 1
 position = Vector2(2, -44)
 scale = Vector2(15.938557, 7.836497)
@@ -102,3 +110,9 @@ libraries = {
 &"": SubResource("AnimationLibrary_pa0as")
 }
 autoplay = &"deactivated"
+
+[node name="Solid" type="StaticBody2D" parent="." unique_id=1645172964]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Solid" unique_id=2055186114]
+position = Vector2(2, -16)
+shape = SubResource("RectangleShape2D_gv8u1")

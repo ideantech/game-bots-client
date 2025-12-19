@@ -25,21 +25,21 @@ enum OverrideBoolean {
 var _is_open: bool = false
 
 func _ready():
-	if detector:
-		detector.body_entered.connect(_body_entered)
-		detector.body_exited.connect(_body_exited)
+	#if detector:
+		#detector.body_entered.connect(_body_entered)
+		#detector.body_exited.connect(_body_exited)
 
 	configure_startup()
 
-func _body_entered(body: Node2D):
-	if not proximity_detection: return
-	
-	try_open()
-
-func _body_exited(body: Node2D):
-	if not proximity_detection: return
-	
-	try_close()
+#func _body_entered(body: Node2D):
+	#if not proximity_detection: return
+	#
+	#try_open()
+#
+#func _body_exited(body: Node2D):
+	#if not proximity_detection: return
+	#
+	#try_close()
 
 func try_open():
 	if not can_open:

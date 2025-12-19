@@ -1,4 +1,4 @@
-[gd_scene load_steps=15 format=3 uid="uid://xv5lo41ir8qf"]
+[gd_scene load_steps=12 format=3 uid="uid://xv5lo41ir8qf"]
 
 [ext_resource type="Script" uid="uid://cqowu88huy6j8" path="res://data/test1/CameraTest.gd" id="1_bjgxq"]
 [ext_resource type="PackedScene" uid="uid://n56pcg2q4pye" path="res://data/test1/node_2d.tscn" id="1_dawxu"]
@@ -9,21 +9,8 @@
 [ext_resource type="PackedScene" uid="uid://cbevuljllwwdo" path="res://prefabs/doors/OBJ_Door1.tscn" id="4_akx6u"]
 [ext_resource type="PackedScene" uid="uid://dfjjyont72jy3" path="res://data/rooms/test/RM_Empty_1x1.tscn" id="5_iu6pp"]
 [ext_resource type="Script" uid="uid://e0f0s1bbwf1i" path="res://scripts/structure/OBJ_Network.gd" id="9_34buc"]
-[ext_resource type="Script" uid="uid://dois1t6pq6bsy" path="res://scripts/ability/RES_AbilityConfig.gd" id="9_ocgj8"]
 [ext_resource type="Script" uid="uid://bg1kkxo17m1r8" path="res://scripts/structure/OBJ_Ship.gd" id="9_y123a"]
 [ext_resource type="PackedScene" uid="uid://do6qlv1q8psih" path="res://prefabs/consoles/OBJ_SimpleConsole.tscn" id="11_775s5"]
-
-[sub_resource type="Resource" id="Resource_shcje"]
-script = ExtResource("9_ocgj8")
-ability_path = "res://scripts/ability/useable/ABL_OpenDoor.gd"
-target = NodePath("../OBJ_VerticalDoor1")
-metadata/_custom_type_script = "uid://dois1t6pq6bsy"
-
-[sub_resource type="Resource" id="Resource_ocgj8"]
-script = ExtResource("9_ocgj8")
-ability_path = "res://scripts/ability/useable/ABL_CloseDoor.gd"
-target = NodePath("../OBJ_VerticalDoor1")
-metadata/_custom_type_script = "uid://dois1t6pq6bsy"
 
 [node name="Testing" type="Node2D" unique_id=235472932]
 
@@ -40,7 +27,6 @@ target = NodePath("../Entities/Character")
 
 [node name="Rm_Test1" parent="." unique_id=1620910929 instance=ExtResource("5_iu6pp")]
 scale = Vector2(4, 4)
-default_on = true
 room_name = "storage_1"
 network_name = "main"
 
@@ -72,15 +58,25 @@ metadata/_custom_type_script = "uid://dg8ykwgm1iqnn"
 [node name="OBJ_VerticalDoor1" parent="Entities" unique_id=2008348332 node_paths=PackedStringArray("room1", "room2") instance=ExtResource("4_akx6u")]
 z_as_relative = false
 position = Vector2(160, 312)
+scale = Vector2(4, 3.4049106)
 room1 = NodePath("../../Rm_Test1")
 room2 = NodePath("../../Rm_Test2")
 
-[node name="OBJ_SimpleConsole" parent="Entities" unique_id=1562656428 instance=ExtResource("11_775s5")]
+[node name="OBJ_SimpleConsole" parent="Entities" unique_id=1562656428 node_paths=PackedStringArray("target") instance=ExtResource("11_775s5")]
 z_as_relative = false
 position = Vector2(88, 128)
-ability_config = SubResource("Resource_shcje")
-deactivate_ability_config = SubResource("Resource_ocgj8")
-tooltip_text = "Open Door"
+target = NodePath("../OBJ_VerticalDoor1")
+activate_ability = "res://scripts/ability/useable/ABL_OpenDoor.gd"
+deactivate_ability = "res://scripts/ability/useable/ABL_CloseDoor.gd"
+activate_on_proximity = false
+is_toggle = true
+
+[node name="OBJ_SimpleConsole2" parent="Entities" unique_id=1312602637 node_paths=PackedStringArray("target") instance=ExtResource("11_775s5")]
+z_as_relative = false
+position = Vector2(232, 432)
+target = NodePath("../../Rm_Test1")
+activate_ability = "res://scripts/ability/useable/ABL_LightsOn.gd"
+deactivate_ability = "res://scripts/ability/useable/ABL_LightsOff.gd"
 activate_on_proximity = false
 is_toggle = true
 

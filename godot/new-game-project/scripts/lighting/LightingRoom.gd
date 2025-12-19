@@ -21,14 +21,18 @@ func _ready():
 	add_to_group(Utl_Constants.GROUP_ROOMS)
 	add_to_group(network_name)
 	
+	for child in get_children():
+		if child is LightingAmbient:
+			child.z_index = 199
+		elif child is LightingBlocker:
+			child.z_index = 3000
+	
 	if disable_lighting:
 		for child in get_children():
 			if child is LightingAmbient:
 				child.visible = false
-				child.z_index = 199
 			if child is LightingBlocker:
 				child.visible = false
-				child.z_index = 200
 		return
 	
 	await get_tree().create_timer(1.0).timeout
