@@ -1,0 +1,11 @@
+[gd_scene load_steps=3 format=3 uid="uid://e7n16qenvtcj"]
+
+[ext_resource type="Script" uid="uid://v6fld0lgcuue" path="res://scripts/ability/walking/ABL_Walking.gd" id="1_t0kaq"]
+[ext_resource type="AudioStream" uid="uid://b8wcq4crdqyph" path="res://assets/sounds/footstep_metal_7.ogg" id="2_2hilw"]
+
+[node name="ABL_Walking" type="Node2D" unique_id=683462317]
+script = ExtResource("1_t0kaq")
+auto_finish = false
+
+[node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="." unique_id=1747135952]
+stream = ExtResource("2_2hilw")

@@ -1,9 +1,10 @@
-[gd_scene load_steps=11 format=3 uid="uid://do6qlv1q8psih"]
+[gd_scene load_steps=12 format=3 uid="uid://do6qlv1q8psih"]
 
 [ext_resource type="Script" uid="uid://bbvecdsyj6xix" path="res://scripts/useable/OBJ_Useable.gd" id="1_4fffu"]
 [ext_resource type="Texture2D" uid="uid://bvor6c0epp1sc" path="res://assets/mini-fantasy/scifi/Props/Props.png" id="2_573xm"]
 [ext_resource type="Script" uid="uid://b0jj4ocd3263v" path="res://scripts/ability/useable/OBJ_Area2D.gd" id="3_sbhgj"]
 [ext_resource type="Texture2D" uid="uid://4if5wtyyp4wa" path="res://data/sprites/particles/pixel.png" id="4_gv8u1"]
+[ext_resource type="Script" uid="uid://cd0nmdmbwhh6h" path="res://scripts/lighting/LightingIndicator.gd" id="5_pa0as"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_573xm"]
 size = Vector2(96, 50)
@@ -98,12 +99,12 @@ position = Vector2(0, -72)
 z_as_relative = false
 
 [node name="Indicator" type="Sprite2D" parent="Node2D" unique_id=14998413]
-z_index = 200
 z_as_relative = false
 texture_filter = 1
 position = Vector2(2, -44)
 scale = Vector2(15.938557, 7.836497)
 texture = ExtResource("4_gv8u1")
+script = ExtResource("5_pa0as")
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="." unique_id=831938742]
 libraries = {

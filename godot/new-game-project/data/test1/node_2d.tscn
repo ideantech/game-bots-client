@@ -76,3 +76,6 @@ script = ExtResource("8_bygiw")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="UseableUser" unique_id=1309121795]
 shape = SubResource("CircleShape2D_re3h8")
+
+[node name="AudioListener2D" type="AudioListener2D" parent="." unique_id=50063547]
+current = true

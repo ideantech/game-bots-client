@@ -1,7 +1,8 @@
-[gd_scene load_steps=9 format=3 uid="uid://cbevuljllwwdo"]
+[gd_scene load_steps=10 format=3 uid="uid://cbevuljllwwdo"]
 
 [ext_resource type="SpriteFrames" uid="uid://dyo3vxokb8ke8" path="res://prefabs/doors/door1.tres" id="1_5m44w"]
 [ext_resource type="Script" uid="uid://dxnnynn3jw8t8" path="res://scripts/lighting/LightingPortal.gd" id="1_7u6pd"]
+[ext_resource type="AudioStream" uid="uid://ctpal6ut5a4m4" path="res://assets/sounds/untitled.ogg" id="3_e1msh"]
 
 [sub_resource type="Animation" id="Animation_7u6pd"]
 length = 0.001
@@ -57,6 +58,21 @@ tracks/1/keys = {
 "update": 1,
 "values": [0, 1, 2, 3, 4, 5, 5]
 }
+tracks/2/type = "audio"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("AudioStreamPlayer2D")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"clips": [{
+"end_offset": 0.0,
+"start_offset": 0.0,
+"stream": ExtResource("3_e1msh")
+}],
+"times": PackedFloat32Array(0)
+}
+tracks/2/use_blend = true
 
 [sub_resource type="Animation" id="Animation_e1msh"]
 resource_name = "powered"
@@ -154,3 +170,6 @@ collision_mask = 2
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D" unique_id=1087920774]
 position = Vector2(0, -10.75)
 shape = SubResource("RectangleShape2D_7u6pd")
+
+[node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="." unique_id=1408960398]
+volume_db = 5.0
