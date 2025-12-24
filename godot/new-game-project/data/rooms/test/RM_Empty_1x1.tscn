@@ -1,4 +1,4 @@
-[gd_scene load_steps=8 format=4 uid="uid://dfjjyont72jy3"]
+[gd_scene format=4 uid="uid://dfjjyont72jy3"]
 
 [ext_resource type="Script" uid="uid://bmd4kp3v3oa6y" path="res://scripts/lighting/LightingRoom.gd" id="1_4n6ch"]
 [ext_resource type="TileSet" uid="uid://c63qyirqi0spv" path="res://data/tilesets/mini-fantasy/mini-fantasy-scifi.tres" id="3_468ff"]
@@ -10,6 +10,42 @@
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_4n6ch"]
 size = Vector2(80, 80)
+
+[sub_resource type="Animation" id="Animation_e4wc4"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Ambient:modulate:a")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [1.0]
+}
+
+[sub_resource type="Animation" id="Animation_kg17m"]
+resource_name = "new_animation"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Ambient:modulate:a")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2, 1),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 0,
+"values": [1.0, 0.0, 1.0, 0.0]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_j5ua1"]
+_data = {
+&"RESET": SubResource("Animation_e4wc4"),
+&"new_animation": SubResource("Animation_kg17m")
+}
 
 [node name="Rm_Test1" type="Node2D" unique_id=1620910929]
 texture_filter = 1
@@ -50,3 +86,6 @@ script = ExtResource("5_yjbm2")
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Detector" unique_id=2134956576]
 position = Vector2(40, 40)
 shape = SubResource("RectangleShape2D_4n6ch")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="." unique_id=626626086]
+libraries/ = SubResource("AnimationLibrary_j5ua1")

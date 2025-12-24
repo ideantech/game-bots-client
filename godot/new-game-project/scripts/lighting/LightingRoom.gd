@@ -10,16 +10,12 @@ static var SHOWN_FORCE: int = 0x4
 @export var default_shown: bool = false
 @export var default_on: bool = false
 @export var disable_lighting: bool = false
-@export var room_name: String = ''
-@export var network_name: String = ''
-
+@export var structure: SCR_Structure
 
 var _shown: int = false
-var _lights_on: bool = false
 
 func _ready():
-	add_to_group(Utl_Constants.GROUP_ROOMS)
-	add_to_group(network_name)
+	UTL_Ship.register_structure(self)
 	
 	for child in get_children():
 		if child is LightingAmbient:
@@ -37,27 +33,16 @@ func _ready():
 	
 	await get_tree().create_timer(1.0).timeout
 	
-	if default_shown:
-		set_shown(SHOWN_FORCE, true)
+	structure.connect_to_power_property_update(on_power_property_update)
 	
-	if default_on:
-		set_lighting(true)
-		
+	refresh()
+
 func is_lights_on():
-	return _lights_on
+	return structure.is_lights_on()
 
 func set_lighting(on: bool):
-	if _lights_on == on: return
-	
-	_lights_on = on
-	
-	for child in get_children():
-		if not child is LightingAmbient: continue
-		
-		if on:
-			(child as LightingAmbient).turn_on()
-		else:
-			(child as LightingAmbient).turn_off()
+	structure.set_lights_on_commanded(on)
+	refresh()
 
 func set_shown(flag: int, s: bool):
 	if (s and _shown & flag != 0) or (not s and _shown & flag == 0): return
@@ -78,3 +63,67 @@ func set_shown(flag: int, s: bool):
 			(child as LightingBlocker).hide_blocker()
 		elif _shown == 0:
 			(child as LightingBlocker).show_blocker()
+
+func turn_on():
+	structure.set_lights_on(true)
+	
+	for child in get_children():
+		if child is LightingAmbient:
+			child.turn_on()
+			
+func turn_off():
+	structure.set_lights_on(false)
+	
+	for child in get_children():
+		if child is LightingAmbient:
+			child.turn_off()
+
+func brown_out():
+	structure.set_lights_on(false)
+	
+	for child in get_children():
+		if not child is LightingAmbient:
+			continue
+			
+		child.brown_out()
+
+func on_power_property_update(node: Node, name: String, v: Variant):
+	if name != 'power-state': return
+	
+	refresh()
+	
+func refresh():
+	var power := structure.get_power_distribution()
+	if structure.is_lights_on_commanded() and structure.has_power():
+		structure.set_useable_on()
+		if not structure.is_lights_on():
+			turn_on()
+	
+	elif power.structure.power_is_brownout():
+		structure.set_useable_on()
+		if structure.is_lights_on():
+			brown_out()
+	
+	elif not structure.has_power():
+		structure.set_useable_disabled()
+		if structure.is_lights_on():
+			turn_off()
+	
+	elif not structure.is_lights_on_commanded():
+		structure.set_lights_on(false)
+		structure.set_useable_off()
+		turn_off()
+
+#region console handling
+
+func on_command(console: UI_Console, command: Array) -> int:
+	if command[0] == 'turn-off':
+		structure.set_lights_on_commanded(false)
+		refresh()
+	elif command[0] == 'turn-on':
+		structure.set_lights_on_commanded(true)
+		refresh()
+		
+	return OK
+
+#endregion

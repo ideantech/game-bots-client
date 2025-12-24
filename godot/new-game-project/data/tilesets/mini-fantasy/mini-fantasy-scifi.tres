@@ -1,4 +1,4 @@
-[gd_resource type="TileSet" load_steps=9 format=3 uid="uid://c63qyirqi0spv"]
+[gd_resource type="TileSet" format=3 uid="uid://c63qyirqi0spv"]
 
 [ext_resource type="Texture2D" uid="uid://ck0644htfuqy8" path="res://assets/mini-fantasy/scifi/Tileset/DerelictTileset.png" id="1_8rtbp"]
 [ext_resource type="Texture2D" uid="uid://0nlthpbwgwr7" path="res://assets/mini-fantasy/scifi/Tileset/DerelictTilesetShadows.png" id="2_c7v44"]

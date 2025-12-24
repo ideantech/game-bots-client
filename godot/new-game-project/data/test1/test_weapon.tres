@@ -1,4 +1,4 @@
-[gd_resource type="Resource" script_class="Package" load_steps=15 format=3 uid="uid://c0c6kxk2ijxpm"]
+[gd_resource type="Resource" script_class="Package" format=3 uid="uid://c0c6kxk2ijxpm"]
 
 [ext_resource type="Script" uid="uid://d35d7a8qck1v6" path="res://scripts/data/attribute/attribute.gd" id="1_a4e6b"]
 [ext_resource type="Script" uid="uid://c7b7oib6ri5ue" path="res://scripts/data/modifier/modifier.gd" id="2_luuvo"]

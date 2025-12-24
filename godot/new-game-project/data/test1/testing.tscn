@@ -1,4 +1,4 @@
-[gd_scene load_steps=12 format=3 uid="uid://xv5lo41ir8qf"]
+[gd_scene format=3 uid="uid://xv5lo41ir8qf"]
 
 [ext_resource type="Script" uid="uid://cqowu88huy6j8" path="res://data/test1/CameraTest.gd" id="1_bjgxq"]
 [ext_resource type="PackedScene" uid="uid://n56pcg2q4pye" path="res://data/test1/node_2d.tscn" id="1_dawxu"]
@@ -6,11 +6,64 @@
 [ext_resource type="PackedScene" uid="uid://brrmlo7kmqpjk" path="res://data/test1/target.tscn" id="2_8etla"]
 [ext_resource type="Script" uid="uid://dg8ykwgm1iqnn" path="res://scripts/ability/DamageTaker/Abl_Invincible.gd" id="3_5y8ql"]
 [ext_resource type="PackedScene" uid="uid://db4peho4yic3" path="res://data/rooms/test/RM_Hallway_1x2.tscn" id="3_akx6u"]
+[ext_resource type="Script" uid="uid://jucr1yra3rpn" path="res://scripts/structure/SCR_Structure.gd" id="3_shcje"]
 [ext_resource type="PackedScene" uid="uid://cbevuljllwwdo" path="res://prefabs/doors/OBJ_Door1.tscn" id="4_akx6u"]
 [ext_resource type="PackedScene" uid="uid://dfjjyont72jy3" path="res://data/rooms/test/RM_Empty_1x1.tscn" id="5_iu6pp"]
-[ext_resource type="Script" uid="uid://e0f0s1bbwf1i" path="res://scripts/structure/OBJ_Network.gd" id="9_34buc"]
 [ext_resource type="Script" uid="uid://bg1kkxo17m1r8" path="res://scripts/structure/OBJ_Ship.gd" id="9_y123a"]
 [ext_resource type="PackedScene" uid="uid://do6qlv1q8psih" path="res://prefabs/consoles/OBJ_SimpleConsole.tscn" id="11_775s5"]
+[ext_resource type="Script" uid="uid://e0f0s1bbwf1i" path="res://scripts/structure/OBJ_Network.gd" id="12_f43rf"]
+[ext_resource type="Script" uid="uid://bv0sx8maybrg3" path="res://scripts/structure/OBJ_PowerDistribution.gd" id="14_cbbua"]
+
+[sub_resource type="Resource" id="Resource_u2oo7"]
+script = ExtResource("3_shcje")
+structure_name = "storage_1"
+structure_properties = {
+"lights-on": false,
+"lights-on-commanded": true,
+"network": "main",
+"power-distribution": "power-distribution"
+}
+metadata/_custom_type_script = "uid://jucr1yra3rpn"
+
+[sub_resource type="Resource" id="Resource_cbbua"]
+script = ExtResource("3_shcje")
+structure_name = "storage_1_transfer"
+structure_properties = {
+"lights-on": false,
+"lights-on-commanded": false,
+"network": "main",
+"power-distribution": "power-distribution"
+}
+metadata/_custom_type_script = "uid://jucr1yra3rpn"
+
+[sub_resource type="Resource" id="Resource_oxie5"]
+script = ExtResource("3_shcje")
+structure_name = "storage_1_door"
+structure_type = 4
+structure_properties = {
+"network": "main",
+"power-distribution": "power-distribution"
+}
+metadata/_custom_type_script = "uid://jucr1yra3rpn"
+
+[sub_resource type="Resource" id="Resource_f43rf"]
+script = ExtResource("3_shcje")
+structure_name = "main"
+structure_type = 1
+structure_properties = {
+"power-distribution": "power-distribution"
+}
+metadata/_custom_type_script = "uid://jucr1yra3rpn"
+
+[sub_resource type="Resource" id="Resource_shcje"]
+script = ExtResource("3_shcje")
+structure_name = "power-distribution"
+structure_type = 2
+structure_properties = {
+"network": "main",
+"power-state": "on"
+}
+metadata/_custom_type_script = "uid://jucr1yra3rpn"
 
 [node name="Testing" type="Node2D" unique_id=235472932]
 
@@ -28,15 +81,13 @@ target = NodePath("../Entities/Character")
 [node name="Rm_Test1" parent="." unique_id=1620910929 instance=ExtResource("5_iu6pp")]
 scale = Vector2(4, 4)
 default_on = true
-room_name = "storage_1"
-network_name = "main"
+structure = SubResource("Resource_u2oo7")
 
 [node name="Rm_Test2" parent="." unique_id=1979284258 instance=ExtResource("3_akx6u")]
 position = Vector2(0, 320)
 scale = Vector2(4, 4)
 default_on = true
-room_name = "storage_1_transfer"
-network_name = "main"
+structure = SubResource("Resource_cbbua")
 
 [node name="Entities" type="Node2D" parent="." unique_id=215875711]
 z_index = 1
@@ -63,6 +114,7 @@ position = Vector2(160, 310.00003)
 scale = Vector2(4, 3.4049106)
 room1 = NodePath("../../Rm_Test1")
 room2 = NodePath("../../Rm_Test2")
+structure = SubResource("Resource_oxie5")
 
 [node name="OBJ_SimpleConsole" parent="Entities" unique_id=1562656428 node_paths=PackedStringArray("target") instance=ExtResource("11_775s5")]
 z_as_relative = false
@@ -75,7 +127,7 @@ is_toggle = true
 
 [node name="OBJ_SimpleConsole2" parent="Entities" unique_id=1312602637 node_paths=PackedStringArray("target") instance=ExtResource("11_775s5")]
 z_as_relative = false
-position = Vector2(232, 432)
+position = Vector2(232, 133)
 target = NodePath("../../Rm_Test2")
 activate_ability = "res://scripts/ability/useable/ABL_LightsOn.gd"
 deactivate_ability = "res://scripts/ability/useable/ABL_LightsOff.gd"
@@ -98,5 +150,9 @@ scale = Vector2(2.3200002, 2.3200002)
 script = ExtResource("9_y123a")
 
 [node name="OBJ_NetworkMain" type="Node2D" parent="OBJ_ShipRoot" unique_id=306839095]
-script = ExtResource("9_34buc")
-network_name = "main"
+script = ExtResource("12_f43rf")
+structure = SubResource("Resource_f43rf")
+
+[node name="OBJ_PowerDistribution" type="Node2D" parent="OBJ_ShipRoot" unique_id=1134355782]
+script = ExtResource("14_cbbua")
+structure = SubResource("Resource_shcje")

@@ -1,6 +1,7 @@
 class_name OBJ_Useable
 extends Node2D
 
+
 @export_group("Activation")
 @export var target_user: bool = false
 @export var target: Node2D = null
@@ -8,8 +9,6 @@ extends Node2D
 @export_file_path('*.tscn', '*.gd') var deactivate_ability: String
 
 @export_group('Configuration')
-#@export var ability_config: RES_AbilityConfig
-#@export var deactivate_ability_config: RES_AbilityConfig
 @export var tooltip_location: Node2D
 @export var detector: Area2D
 @export var tooltip_text: String = ''
@@ -34,7 +33,34 @@ func _ready():
 		detector.body_exited.connect(_on_area_2d_body_exited)
 		detector.area_entered.connect(_on_area_2d_body_entered)
 		detector.area_exited.connect(_on_area_2d_body_exited)
+	
+	await get_tree().create_timer(0.1).timeout
+	refresh_indication()
+	
+	SCR_Structure.connect_to_property_update(target, on_target_property_change)
+	
+func on_target_property_change(node: Node, name: String, v: Variant):
+	if name == 'useable':
+		refresh_indication()
 
+func refresh_indication():
+	if not SCR_Structure.has_structure(target): return
+	if _animation_player == null: return
+	
+	var str: SCR_Structure = target.structure
+
+	if str.is_useable_on():
+		_animation_player.play('activated')
+		_activated = true
+	elif str.is_useable_off():
+		print('deactivated')
+		_animation_player.play('deactivated')
+		_activated = false
+	elif str.is_useable_disabled():
+		print('disabled')
+		_animation_player.play('disabled')
+		_activated = false
+	
 func _on_area_2d_body_entered(body: Node2D) -> void:
 	var count = detector.get_overlapping_bodies().size()
 	
@@ -48,7 +74,7 @@ func _on_area_2d_body_entered(body: Node2D) -> void:
 		if not activate_for_each and count > 1:
 			return
 
-		_activated = true
+		#_activated = true
 		activate(body)
 		return
 		
@@ -71,7 +97,7 @@ func _on_area_2d_body_exited(body: Node2D) -> void:
 		if not activate_for_each and count > 0:
 			return
 			
-		_activated = false
+		#_activated = false
 		deactivate(body)
 		return
 	
@@ -99,22 +125,20 @@ func try_run_ability(file: String, used_by: Node2D) -> Ability:
 	return inst
 
 func activate(used_by: Node2D):
-	_activated = true
-	
 	try_run_ability(activate_ability, used_by)
 	
-	if _animation_player != null:
-		_animation_player.play('activated')
-	
 func deactivate(used_by: Node2D):
-	_activated = false
-	
 	try_run_ability(deactivate_ability, used_by)
 	
-	if _animation_player != null:
-		_animation_player.play('deactivated')
-	
 func use(used_by: Node2D):
+	if not SCR_Structure.has_structure(target): return
+	
+	if (target.structure as SCR_Structure).is_useable_disabled():
+		return
+	
+	if activate_once and _activated:
+		return
+	
 	if is_toggle:
 		if not _activated:
 			activate(used_by)

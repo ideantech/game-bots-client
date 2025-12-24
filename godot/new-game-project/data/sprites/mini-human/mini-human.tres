@@ -1,4 +1,4 @@
-[gd_resource type="SpriteFrames" load_steps=55 format=3 uid="uid://cfx60ah486och"]
+[gd_resource type="SpriteFrames" format=3 uid="uid://cfx60ah486och"]
 
 [ext_resource type="Texture2D" uid="uid://ct6tgpe4s6mj5" path="res://data/sprites/mini-human/Attack.png" id="1_aj7f2"]
 [ext_resource type="Texture2D" uid="uid://u572tl38q4pd" path="res://data/sprites/mini-human/Idle.png" id="1_vg0sn"]

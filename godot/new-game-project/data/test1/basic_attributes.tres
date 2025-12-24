@@ -1,4 +1,4 @@
-[gd_resource type="Resource" script_class="Package" load_steps=13 format=3 uid="uid://dapl3xgxg3kaa"]
+[gd_resource type="Resource" script_class="Package" format=3 uid="uid://dapl3xgxg3kaa"]
 
 [ext_resource type="Script" uid="uid://d35d7a8qck1v6" path="res://scripts/data/attribute/attribute.gd" id="1_g2p3a"]
 [ext_resource type="Script" uid="uid://c2ii476865sad" path="res://scripts/data/package/package_modifier.gd" id="2_bq6sx"]

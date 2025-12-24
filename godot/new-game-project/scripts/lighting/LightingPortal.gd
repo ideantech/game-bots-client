@@ -12,6 +12,7 @@ enum OverrideBoolean {
 @export var room2: LightingRoom
 @export var detector: Area2D
 @export var animation_player: AnimationPlayer
+@export var structure: SCR_Structure
 
 @export_group('Configuration')
 @export var can_close: bool = true
@@ -22,24 +23,46 @@ enum OverrideBoolean {
 @export var override_powered: OverrideBoolean = OverrideBoolean.NotApplicable
 @export var override_opened: OverrideBoolean = OverrideBoolean.NotApplicable
 
+#var useable: SCR_Useable = SCR_Useable.new()
+
 var _is_open: bool = false
+var _commanded_open: bool = false
+
 
 func _ready():
+	UTL_Ship.register_structure(self)
 	#if detector:
 		#detector.body_entered.connect(_body_entered)
 		#detector.body_exited.connect(_body_exited)
 
 	configure_startup()
+	#useable.state = SCR_Useable.UseableState.OFF
+	structure.set_useable_off()
+	
+	await get_tree().create_timer(0.5).timeout
+	structure.connect_to_power_property_update(property_updated)
 
-#func _body_entered(body: Node2D):
-	#if not proximity_detection: return
-	#
-	#try_open()
-#
-#func _body_exited(body: Node2D):
-	#if not proximity_detection: return
-	#
-	#try_close()
+func property_updated(node: Node, name: String, v: Variant):
+	if name != 'power-state': return
+	
+	var pd := structure.get_power_distribution()
+	if pd.structure.power_is_off():
+		_commanded_open = _is_open
+		if structure.door_is_open_on_power_loss():
+			try_open()
+		elif structure.door_is_close_on_power_loss():
+			try_close()
+		
+		structure.set_useable_disabled()
+		
+	elif pd.structure.power_is_on() or pd.structure.power_is_brownout():
+		if _commanded_open:
+			structure.set_useable_on()
+			try_open()
+		else:
+			structure.set_useable_off()
+			try_close()
+		pass
 
 func try_open():
 	if not can_open:
@@ -60,6 +83,9 @@ func try_open():
 		#if not animation_player.is_playing():
 			animation_player.play('open')
 			_is_open = true
+			
+	#useable.set_state(self, SCR_Useable.UseableState.ON)
+	structure.set_useable_on()
 
 func try_close():
 	if not can_close:
@@ -80,6 +106,9 @@ func try_close():
 	if _is_open && animation_player != null:
 		animation_player.play_backwards('open')
 		_is_open = false
+		
+	#useable.set_state(self, SCR_Useable.UseableState.OFF)
+	structure.set_useable_off()
 
 func is_powered() -> bool:
 	if override_powered != OverrideBoolean.NotApplicable:

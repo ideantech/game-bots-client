@@ -12,10 +12,25 @@ static var DEFAULT_AMBIENT_ON: float = 0.4
 func _ready():
 	modulate.a = DEFAULT_AMBIENT_OFF
 	visible = true
+	add_to_group(Utl_Constants.GROUP_AMBIENT_LIGHTS)
 	
 func turn_on():
 	var tween := get_tree().create_tween()
-	tween.tween_property(self, 'modulate:a', DEFAULT_AMBIENT_ON, DEFAULT_TRANSITION_TIME)
+	tween.tween_property(self, 'modulate:a', 0.0, 0.1)
+	tween.chain().tween_property(self, 'modulate:a', 0.5, 0.1)
+	tween.chain().tween_property(self, 'modulate:a', 0.0, 0.7)
+	
+func brown_out():
+	var tween := get_tree().create_tween()
+	tween.tween_property(self, 'modulate:a', 0.4, 0.5)
+	tween.chain().tween_property(self, 'modulate:a', 0.3, 0.75)
+	tween.chain().tween_property(self, 'modulate:a', 0.4, 0.75)
+	tween.chain().tween_property(self, 'modulate:a', 0.3, 0.75)
+	tween.chain().tween_property(self, 'modulate:a', 0.4, 0.75)
+	tween.chain().tween_property(self, 'modulate:a', 0.3, 0.75)
+	tween.chain().tween_property(self, 'modulate:a', 0.4, 0.75)
+	tween.chain().tween_property(self, 'modulate:a', 0.3, 0.25)
+	tween.chain().tween_property(self, 'modulate:a', 1.0, 0.1)
 	
 func turn_off():
 	var tween := get_tree().create_tween()
