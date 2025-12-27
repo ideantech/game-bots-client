@@ -2,17 +2,26 @@
 
 [ext_resource type="Script" uid="uid://cqowu88huy6j8" path="res://data/test1/CameraTest.gd" id="1_bjgxq"]
 [ext_resource type="PackedScene" uid="uid://n56pcg2q4pye" path="res://data/test1/node_2d.tscn" id="1_dawxu"]
-[ext_resource type="PackedScene" uid="uid://un2qithae8gg" path="res://prefabs/ui/console/UI_Console.tscn" id="1_tga2a"]
 [ext_resource type="PackedScene" uid="uid://brrmlo7kmqpjk" path="res://data/test1/target.tscn" id="2_8etla"]
 [ext_resource type="Script" uid="uid://dg8ykwgm1iqnn" path="res://scripts/ability/DamageTaker/Abl_Invincible.gd" id="3_5y8ql"]
 [ext_resource type="PackedScene" uid="uid://db4peho4yic3" path="res://data/rooms/test/RM_Hallway_1x2.tscn" id="3_akx6u"]
 [ext_resource type="Script" uid="uid://jucr1yra3rpn" path="res://scripts/structure/SCR_Structure.gd" id="3_shcje"]
 [ext_resource type="PackedScene" uid="uid://cbevuljllwwdo" path="res://prefabs/doors/OBJ_Door1.tscn" id="4_akx6u"]
 [ext_resource type="PackedScene" uid="uid://dfjjyont72jy3" path="res://data/rooms/test/RM_Empty_1x1.tscn" id="5_iu6pp"]
+[ext_resource type="PackedScene" uid="uid://cflfv3b8fiwev" path="res://prefabs/rooms/RM_SatelliteReceiving1.tscn" id="7_l326v"]
+[ext_resource type="PackedScene" uid="uid://m4a7s4e8fi5c" path="res://prefabs/rooms/RM_SatelliteHallway1.tscn" id="8_u2oo7"]
+[ext_resource type="PackedScene" uid="uid://do3252klsuuee" path="res://prefabs/rooms/RM_SatellitePower1.tscn" id="9_8ngam"]
 [ext_resource type="Script" uid="uid://bg1kkxo17m1r8" path="res://scripts/structure/OBJ_Ship.gd" id="9_y123a"]
 [ext_resource type="PackedScene" uid="uid://do6qlv1q8psih" path="res://prefabs/consoles/OBJ_SimpleConsole.tscn" id="11_775s5"]
 [ext_resource type="Script" uid="uid://e0f0s1bbwf1i" path="res://scripts/structure/OBJ_Network.gd" id="12_f43rf"]
+[ext_resource type="PackedScene" uid="uid://cg12lfn1nffee" path="res://prefabs/consoles/OBJ_SimpleConsole2.tscn" id="13_5mke6"]
+[ext_resource type="PackedScene" uid="uid://kxo4y223gh1k" path="res://prefabs/ui/console/UI_ConsoleContainer.tscn" id="13_shcje"]
 [ext_resource type="Script" uid="uid://bv0sx8maybrg3" path="res://scripts/structure/OBJ_PowerDistribution.gd" id="14_cbbua"]
+[ext_resource type="PackedScene" uid="uid://b0hy0hydrcl3f" path="res://prefabs/rooms/RM_Shuttle1.tscn" id="14_f43rf"]
+[ext_resource type="PackedScene" uid="uid://dsi6vsr4ga41f" path="res://prefabs/rooms/RM_DockingTube.tscn" id="15_cbbua"]
+[ext_resource type="PackedScene" uid="uid://dov6p486dmsme" path="res://prefabs/doors/OBJ_Door2.tscn" id="16_oxie5"]
+[ext_resource type="PackedScene" uid="uid://4kl8mm3t68op" path="res://prefabs/ui/power/UI_PowerTerminal1.tscn" id="20_5h6rw"]
+[ext_resource type="Texture2D" uid="uid://4q335xxs2p" path="res://icon.svg" id="21_8gugx"]
 
 [sub_resource type="Resource" id="Resource_u2oo7"]
 script = ExtResource("3_shcje")
@@ -36,12 +45,56 @@ structure_properties = {
 }
 metadata/_custom_type_script = "uid://jucr1yra3rpn"
 
+[sub_resource type="Resource" id="Resource_8ngam"]
+script = ExtResource("3_shcje")
+structure_name = "shuttle"
+structure_properties = {
+"lights-on": true,
+"lights-on-commanded": true,
+"network": "main",
+"power-distribution": "power-distribution"
+}
+metadata/_custom_type_script = "uid://jucr1yra3rpn"
+
+[sub_resource type="Resource" id="Resource_8gugx"]
+script = ExtResource("3_shcje")
+structure_name = "docking-tube"
+structure_properties = {
+"lights-on": true,
+"lights-on-commanded": true,
+"network": "main",
+"power-distribution": "power-distribution"
+}
+metadata/_custom_type_script = "uid://jucr1yra3rpn"
+
 [sub_resource type="Resource" id="Resource_oxie5"]
 script = ExtResource("3_shcje")
 structure_name = "storage_1_door"
 structure_type = 4
 structure_properties = {
 "network": "main",
+"power-distribution": "power-distribution"
+}
+metadata/_custom_type_script = "uid://jucr1yra3rpn"
+
+[sub_resource type="Resource" id="Resource_l326v"]
+script = ExtResource("3_shcje")
+structure_name = "docking-door"
+structure_type = 4
+structure_properties = {
+"network": "main",
+"on-power-loss": "nothing",
+"power-distribution": "power-distribution"
+}
+metadata/_custom_type_script = "uid://jucr1yra3rpn"
+
+[sub_resource type="Resource" id="Resource_5mke6"]
+script = ExtResource("3_shcje")
+structure_name = "shuttle-door"
+structure_type = 4
+structure_properties = {
+"network": "main",
+"on-power-loss": "close",
 "power-distribution": "power-distribution"
 }
 metadata/_custom_type_script = "uid://jucr1yra3rpn"
@@ -72,22 +125,48 @@ position = Vector2(287, 158)
 zoom = Vector2(1.5, 1.5)
 limit_left = 0
 limit_top = 0
-limit_right = 1024
-limit_bottom = 1024
+limit_right = 4096
+limit_bottom = 2048
+limit_smoothed = true
 editor_draw_limits = true
 script = ExtResource("1_bjgxq")
 target = NodePath("../Entities/Character")
 
-[node name="Rm_Test1" parent="." unique_id=1620910929 instance=ExtResource("5_iu6pp")]
+[node name="Rooms" type="Node2D" parent="." unique_id=297683615]
+
+[node name="Rm_Test1" parent="Rooms" unique_id=1620910929 instance=ExtResource("5_iu6pp")]
+position = Vector2(3184, -312)
 scale = Vector2(4, 4)
 default_on = true
 structure = SubResource("Resource_u2oo7")
 
-[node name="Rm_Test2" parent="." unique_id=1979284258 instance=ExtResource("3_akx6u")]
-position = Vector2(0, 320)
+[node name="Rm_Test2" parent="Rooms" unique_id=1979284258 instance=ExtResource("3_akx6u")]
+position = Vector2(2024, 992)
 scale = Vector2(4, 4)
 default_on = true
 structure = SubResource("Resource_cbbua")
+
+[node name="RM_Shuttle1" parent="Rooms" unique_id=1711783613 instance=ExtResource("14_f43rf")]
+position = Vector2(432, 416)
+scale = Vector2(4, 4)
+structure = SubResource("Resource_8ngam")
+
+[node name="RM_DockingTube" parent="Rooms" unique_id=1693909458 instance=ExtResource("15_cbbua")]
+position = Vector2(816, 640)
+scale = Vector2(4, 4)
+structure = SubResource("Resource_8gugx")
+
+[node name="RM_DockingTube2" parent="Rooms" unique_id=880096034 instance=ExtResource("7_l326v")]
+position = Vector2(1168, 640)
+scale = Vector2(4, 4)
+
+[node name="RM_SatelliteHallway1" parent="Rooms" unique_id=287776782 instance=ExtResource("8_u2oo7")]
+position = Vector2(1552, 640)
+scale = Vector2(4, 4)
+
+[node name="RM_SatellitePower1" parent="Rooms" unique_id=985722382 instance=ExtResource("9_8ngam")]
+position = Vector2(1928, 448)
+scale = Vector2(4, 4)
 
 [node name="Entities" type="Node2D" parent="." unique_id=215875711]
 z_index = 1
@@ -95,7 +174,7 @@ y_sort_enabled = true
 
 [node name="Character" parent="Entities" unique_id=1881503207 instance=ExtResource("1_dawxu")]
 z_as_relative = false
-position = Vector2(168, 168)
+position = Vector2(680, 696)
 
 [node name="Target" parent="Entities" unique_id=841781327 instance=ExtResource("2_8etla")]
 z_as_relative = false
@@ -108,17 +187,17 @@ target = NodePath("..")
 auto_finish = false
 metadata/_custom_type_script = "uid://dg8ykwgm1iqnn"
 
-[node name="OBJ_VerticalDoor1" parent="Entities" unique_id=2008348332 node_paths=PackedStringArray("room1", "room2") instance=ExtResource("4_akx6u")]
+[node name="OBJ_VerticalDoor1" parent="Entities" unique_id=1418512217 node_paths=PackedStringArray("room1", "room2") instance=ExtResource("4_akx6u")]
 z_as_relative = false
-position = Vector2(160, 310.00003)
+position = Vector2(2184, 984)
 scale = Vector2(4, 3.4049106)
-room1 = NodePath("../../Rm_Test1")
-room2 = NodePath("../../Rm_Test2")
+room1 = NodePath("../../Rooms/Rm_Test1")
+room2 = NodePath("../../Rooms/Rm_Test2")
 structure = SubResource("Resource_oxie5")
 
 [node name="OBJ_SimpleConsole" parent="Entities" unique_id=1562656428 node_paths=PackedStringArray("target") instance=ExtResource("11_775s5")]
 z_as_relative = false
-position = Vector2(88, 128)
+position = Vector2(2096, 920)
 target = NodePath("../OBJ_VerticalDoor1")
 activate_ability = "res://scripts/ability/useable/ABL_OpenDoor.gd"
 deactivate_ability = "res://scripts/ability/useable/ABL_CloseDoor.gd"
@@ -127,24 +206,47 @@ is_toggle = true
 
 [node name="OBJ_SimpleConsole2" parent="Entities" unique_id=1312602637 node_paths=PackedStringArray("target") instance=ExtResource("11_775s5")]
 z_as_relative = false
-position = Vector2(232, 133)
-target = NodePath("../../Rm_Test2")
+position = Vector2(3760, -16)
+target = NodePath("../../Rooms/Rm_Test2")
 activate_ability = "res://scripts/ability/useable/ABL_LightsOn.gd"
 deactivate_ability = "res://scripts/ability/useable/ABL_LightsOff.gd"
 activate_on_proximity = false
 is_toggle = true
 
-[node name="UI_Console" parent="." unique_id=2063452006 instance=ExtResource("1_tga2a")]
-anchors_preset = 0
-anchor_right = 0.0
-anchor_bottom = 0.0
-offset_left = 336.0
-offset_top = 16.0
-offset_right = 600.0
-offset_bottom = 200.0
-grow_horizontal = 1
-grow_vertical = 1
-scale = Vector2(2.3200002, 2.3200002)
+[node name="OBJ_DockingDoor" parent="Entities" unique_id=2008348332 instance=ExtResource("16_oxie5")]
+z_as_relative = false
+position = Vector2(1216, 656)
+structure = SubResource("Resource_l326v")
+
+[node name="OBJ_ShuttleDoor" parent="Entities" unique_id=583295280 instance=ExtResource("16_oxie5")]
+z_as_relative = false
+position = Vector2(832, 656)
+structure = SubResource("Resource_5mke6")
+
+[node name="OBJ_ShuttleDoorConsole" parent="Entities" unique_id=1067084549 node_paths=PackedStringArray("target") instance=ExtResource("13_5mke6")]
+position = Vector2(808, 800)
+target = NodePath("../OBJ_ShuttleDoor")
+activate_ability = "res://scripts/ability/useable/ABL_OpenDoor.gd"
+deactivate_ability = "res://scripts/ability/useable/ABL_CloseDoor.gd"
+activate_on_proximity = false
+is_toggle = true
+
+[node name="OBJ_DockingDoorConsole" parent="Entities" unique_id=1034602279 node_paths=PackedStringArray("target") instance=ExtResource("13_5mke6")]
+position = Vector2(1160, 688)
+target = NodePath("../OBJ_DockingDoor")
+activate_ability = "res://scripts/ability/useable/ABL_OpenDoor.gd"
+deactivate_ability = "res://scripts/ability/useable/ABL_CloseDoor.gd"
+activate_on_proximity = false
+activate_once = true
+is_toggle = true
+
+[node name="OBJ_PowerTerminalConsole" parent="Entities" unique_id=55813303 node_paths=PackedStringArray("target") instance=ExtResource("13_5mke6")]
+position = Vector2(720, 776)
+target = NodePath("../../OBJ_ShipRoot/OBJ_PowerDistribution/CanvasLayer/UI_PowerTerminal1")
+activate_ability = "res://scripts/ability/ABL_OpenTerminal.gd"
+deactivate_ability = "res://scripts/ability/ABL_OpenTerminal.gd"
+activate_on_proximity = false
+is_toggle = true
 
 [node name="OBJ_ShipRoot" type="Node2D" parent="." unique_id=1630119369]
 script = ExtResource("9_y123a")
@@ -156,3 +258,122 @@ structure = SubResource("Resource_f43rf")
 [node name="OBJ_PowerDistribution" type="Node2D" parent="OBJ_ShipRoot" unique_id=1134355782]
 script = ExtResource("14_cbbua")
 structure = SubResource("Resource_shcje")
+
+[node name="CanvasLayer" type="CanvasLayer" parent="OBJ_ShipRoot/OBJ_PowerDistribution" unique_id=719653934]
+scale = Vector2(4, 4)
+transform = Transform2D(4, 0, 0, 4, 0, 0)
+
+[node name="UI_PowerTerminal1" parent="OBJ_ShipRoot/OBJ_PowerDistribution/CanvasLayer" unique_id=676154855 node_paths=PackedStringArray("power_distribution") instance=ExtResource("20_5h6rw")]
+visible = false
+power_distribution = NodePath("../..")
+
+[node name="UI" type="CanvasLayer" parent="." unique_id=1810664993]
+scale = Vector2(4, 4)
+transform = Transform2D(4, 0, 0, 4, 0, 0)
+
+[node name="UI_ConsoleContainer" parent="UI" unique_id=863062567 instance=ExtResource("13_shcje")]
+visible = false
+
+[node name="PlaceHolders" type="Node2D" parent="." unique_id=1697763739]
+
+[node name="Polygon2D" type="Polygon2D" parent="PlaceHolders" unique_id=1342716855]
+
+[node name="Sprite2D" type="Sprite2D" parent="PlaceHolders" unique_id=2147180835]
+position = Vector2(1400, 1145.76)
+scale = Vector2(2.3750002, 2.7224994)
+texture = ExtResource("21_8gugx")
+
+[node name="Sprite2D15" type="Sprite2D" parent="PlaceHolders" unique_id=125733499]
+position = Vector2(1680.0001, 72)
+scale = Vector2(2.3750002, 2.7224994)
+texture = ExtResource("21_8gugx")
+
+[node name="Sprite2D16" type="Sprite2D" parent="PlaceHolders" unique_id=1006274508]
+position = Vector2(1680, -304)
+scale = Vector2(2.3750002, 2.7224994)
+texture = ExtResource("21_8gugx")
+
+[node name="Sprite2D2" type="Sprite2D" parent="PlaceHolders" unique_id=115565541]
+position = Vector2(2192, 1904)
+scale = Vector2(4.4491153, 3.9905791)
+texture = ExtResource("21_8gugx")
+
+[node name="Sprite2D6" type="Sprite2D" parent="PlaceHolders" unique_id=974420728]
+position = Vector2(3297.6282, 1876.3015)
+scale = Vector2(6.349556, 5.80779)
+texture = ExtResource("21_8gugx")
+
+[node name="Sprite2D3" type="Sprite2D" parent="PlaceHolders" unique_id=7513725]
+position = Vector2(2744, 736)
+scale = Vector2(4.4491153, 1.2452906)
+texture = ExtResource("21_8gugx")
+
+[node name="Sprite2D14" type="Sprite2D" parent="PlaceHolders" unique_id=120801836]
+position = Vector2(2685.6284, 1904)
+scale = Vector2(2.5370593, 1.2452906)
+texture = ExtResource("21_8gugx")
+
+[node name="Sprite2D10" type="Sprite2D" parent="PlaceHolders" unique_id=1547423654]
+position = Vector2(2958.3718, 40.00006)
+scale = Vector2(3.724556, 1.2452906)
+texture = ExtResource("21_8gugx")
+
+[node name="Sprite2D12" type="Sprite2D" parent="PlaceHolders" unique_id=568046556]
+position = Vector2(2496, -392)
+scale = Vector2(3.724556, 1.2452906)
+texture = ExtResource("21_8gugx")
+
+[node name="Sprite2D17" type="Sprite2D" parent="PlaceHolders" unique_id=1524632286]
+position = Vector2(1988.8142, -304.00003)
+scale = Vector2(1.9247774, 1.2452906)
+texture = ExtResource("21_8gugx")
+
+[node name="Sprite2D18" type="Sprite2D" parent="PlaceHolders" unique_id=60244131]
+position = Vector2(1992.0001, 55.99994)
+scale = Vector2(1.9247774, 1.2452906)
+texture = ExtResource("21_8gugx")
+
+[node name="Sprite2D4" type="Sprite2D" parent="PlaceHolders" unique_id=391351206]
+position = Vector2(3352, 744.15076)
+scale = Vector2(4.4491153, 3.2476454)
+texture = ExtResource("21_8gugx")
+
+[node name="Sprite2D13" type="Sprite2D" parent="PlaceHolders" unique_id=1186496801]
+position = Vector2(2200, -1024)
+scale = Vector2(4.4491153, 3.2476454)
+texture = ExtResource("21_8gugx")
+
+[node name="Sprite2D5" type="Sprite2D" parent="PlaceHolders" unique_id=40895437]
+position = Vector2(3360, 1240)
+scale = Vector2(1.0370588, 3.2476454)
+texture = ExtResource("21_8gugx")
+
+[node name="Sprite2D8" type="Sprite2D" parent="PlaceHolders" unique_id=607565882]
+position = Vector2(3352.0002, 264)
+scale = Vector2(1.0370588, 3.2476454)
+texture = ExtResource("21_8gugx")
+
+[node name="Sprite2D11" type="Sprite2D" parent="PlaceHolders" unique_id=474895861]
+position = Vector2(2624, -88)
+scale = Vector2(1.0370588, 3.2476454)
+texture = ExtResource("21_8gugx")
+
+[node name="Sprite2D9" type="Sprite2D" parent="PlaceHolders" unique_id=945000893]
+position = Vector2(2200, -152.07538)
+scale = Vector2(1.0370588, 9.373822)
+texture = ExtResource("21_8gugx")
+
+[node name="Sprite2D7" type="Sprite2D" parent="PlaceHolders" unique_id=315405436]
+position = Vector2(2863.9998, 1224)
+scale = Vector2(4.3935313, 3.2476454)
+texture = ExtResource("21_8gugx")
+
+[node name="Sprite2D19" type="Sprite2D" parent="PlaceHolders" unique_id=1028475491]
+position = Vector2(1600, 1896)
+scale = Vector2(4.3935313, 3.2476454)
+texture = ExtResource("21_8gugx")
+
+[node name="Sprite2D20" type="Sprite2D" parent="PlaceHolders" unique_id=2094192265]
+position = Vector2(1716.593, 1543.9246)
+scale = Vector2(2.4467661, 2.1238217)
+texture = ExtResource("21_8gugx")

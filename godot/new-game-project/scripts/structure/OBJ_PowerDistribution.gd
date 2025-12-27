@@ -2,10 +2,6 @@ class_name OBJ_PowerDistribution
 extends Node2D
 
 
-static var POWER_SHUTOFF: int = 0
-static var POWER_ON: int = 1
-static var POWER_BROWNOUT: int = 2
-
 @export var structure: SCR_Structure
 
 
@@ -41,4 +37,5 @@ func on_command(console: UI_Console, command: Array) -> int:
 func turn_off(delay: float):
 	await get_tree().create_timer(delay).timeout
 	structure.power_set_off()
+	
 #endregion

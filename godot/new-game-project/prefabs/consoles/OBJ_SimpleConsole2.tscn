@@ -1,0 +1,132 @@
+[gd_scene format=3 uid="uid://cg12lfn1nffee"]
+
+[ext_resource type="Script" uid="uid://bbvecdsyj6xix" path="res://scripts/useable/OBJ_Useable.gd" id="1_hagh0"]
+[ext_resource type="Texture2D" uid="uid://bvor6c0epp1sc" path="res://assets/mini-fantasy/scifi/Props/Props.png" id="2_4ushc"]
+[ext_resource type="Script" uid="uid://b0jj4ocd3263v" path="res://scripts/ability/useable/OBJ_Area2D.gd" id="3_drmgb"]
+[ext_resource type="Texture2D" uid="uid://4if5wtyyp4wa" path="res://data/sprites/particles/pixel.png" id="4_qmblg"]
+[ext_resource type="Script" uid="uid://cd0nmdmbwhh6h" path="res://scripts/lighting/LightingIndicator.gd" id="5_qfxvm"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_573xm"]
+size = Vector2(48, 48)
+
+[sub_resource type="Animation" id="Animation_pa0as"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Node2D/Indicator:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 1)]
+}
+
+[sub_resource type="Animation" id="Animation_0rqom"]
+resource_name = "activated"
+length = 2.0
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Node2D/Indicator:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(0, 1, 0, 1)]
+}
+
+[sub_resource type="Animation" id="Animation_gv8u1"]
+resource_name = "deactivated"
+length = 2.0
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Node2D/Indicator:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 1.0333333, 2.0333333),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Color(0, 1, 0, 1), Color(0, 1, 0, 0.105882354), Color(0, 1, 0, 0.99075055)]
+}
+
+[sub_resource type="Animation" id="Animation_fcis8"]
+resource_name = "disabled"
+length = 2.0
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Node2D/Indicator:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 0, 1)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_pa0as"]
+_data = {
+&"RESET": SubResource("Animation_pa0as"),
+&"activated": SubResource("Animation_0rqom"),
+&"deactivated": SubResource("Animation_gv8u1"),
+&"disabled": SubResource("Animation_fcis8")
+}
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_gv8u1"]
+size = Vector2(23, 28)
+
+[node name="OBJ_SimpleConsole" type="Node2D" unique_id=1562656428 node_paths=PackedStringArray("tooltip_location", "detector")]
+script = ExtResource("1_hagh0")
+tooltip_location = NodePath("Tooltip")
+detector = NodePath("Area2D")
+
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=72242250]
+texture_filter = 1
+scale = Vector2(4, 4)
+texture = ExtResource("2_4ushc")
+region_enabled = true
+region_rect = Rect2(98, 64, 6, 7)
+
+[node name="Area2D" type="Area2D" parent="." unique_id=1377682349 node_paths=PackedStringArray("proxy_to")]
+position = Vector2(0, 16)
+collision_layer = 8
+collision_mask = 16
+script = ExtResource("3_drmgb")
+proxy_to = NodePath("..")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D" unique_id=2133739899]
+position = Vector2(0, -16)
+shape = SubResource("RectangleShape2D_573xm")
+
+[node name="Tooltip" type="Node2D" parent="." unique_id=406660901]
+position = Vector2(0, -72)
+
+[node name="Node2D" type="Node2D" parent="." unique_id=1761628376]
+z_as_relative = false
+
+[node name="Indicator" type="Sprite2D" parent="Node2D" unique_id=14998413]
+z_as_relative = false
+texture_filter = 1
+scale = Vector2(15.33856, 13.036496)
+texture = ExtResource("4_qmblg")
+script = ExtResource("5_qfxvm")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="." unique_id=831938742]
+libraries/ = SubResource("AnimationLibrary_pa0as")
+autoplay = &"deactivated"
+
+[node name="Solid" type="StaticBody2D" parent="." unique_id=1645172964]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Solid" unique_id=2055186114]
+shape = SubResource("RectangleShape2D_gv8u1")

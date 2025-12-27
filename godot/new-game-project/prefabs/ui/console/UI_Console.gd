@@ -42,6 +42,7 @@ func reset():
 		child.queue_free()
 	_connection.clear()
 	_txtInput.text = ''
+	_txtInput.grab_focus()
 
 func _on_v_scrollbar_changed():
 	var max = _cntScroll.get_v_scroll_bar().max_value

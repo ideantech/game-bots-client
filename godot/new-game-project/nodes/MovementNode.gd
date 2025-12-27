@@ -21,6 +21,9 @@ func _ready() -> void:
 	_attr_run_speed = data.data.find_attribute(DataNode.ATTR_RUN_SPEED)
 
 	
+func enable():
+	set_physics_process(true)
+	
 func disable():
 	set_physics_process(false)
 

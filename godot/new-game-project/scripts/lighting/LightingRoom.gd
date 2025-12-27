@@ -33,7 +33,7 @@ func _ready():
 	
 	await get_tree().create_timer(1.0).timeout
 	
-	structure.connect_to_power_property_update(on_power_property_update)
+	if structure: structure.connect_to_power_property_update(on_power_property_update)
 	
 	refresh()
 
@@ -93,6 +93,8 @@ func on_power_property_update(node: Node, name: String, v: Variant):
 	refresh()
 	
 func refresh():
+	if structure == null: return
+	
 	var power := structure.get_power_distribution()
 	if structure.is_lights_on_commanded() and structure.has_power():
 		structure.set_useable_on()

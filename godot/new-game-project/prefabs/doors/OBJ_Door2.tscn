@@ -1,8 +1,8 @@
-[gd_scene format=3 uid="uid://cbevuljllwwdo"]
+[gd_scene format=3 uid="uid://dov6p486dmsme"]
 
-[ext_resource type="SpriteFrames" uid="uid://dyo3vxokb8ke8" path="res://prefabs/doors/door1.tres" id="1_5m44w"]
-[ext_resource type="Script" uid="uid://dxnnynn3jw8t8" path="res://scripts/lighting/LightingPortal.gd" id="1_7u6pd"]
-[ext_resource type="AudioStream" uid="uid://ctpal6ut5a4m4" path="res://assets/sounds/untitled.ogg" id="3_e1msh"]
+[ext_resource type="Script" uid="uid://dxnnynn3jw8t8" path="res://scripts/lighting/LightingPortal.gd" id="1_y2ntl"]
+[ext_resource type="SpriteFrames" uid="uid://ca0aauavtkrng" path="res://prefabs/doors/door2.tres" id="2_y2ntl"]
+[ext_resource type="AudioStream" uid="uid://ctpal6ut5a4m4" path="res://assets/sounds/untitled.ogg" id="3_oggeg"]
 
 [sub_resource type="Animation" id="Animation_7u6pd"]
 length = 0.001
@@ -40,7 +40,7 @@ tracks/2/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 0,
-"values": [Vector2(-3.25, 11.5)]
+"values": [Vector2(0.5, 3.75)]
 }
 tracks/3/type = "value"
 tracks/3/imported = false
@@ -52,7 +52,7 @@ tracks/3/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 0,
-"values": [Vector2(4.75, 11.5)]
+"values": [Vector2(0, 16)]
 }
 
 [sub_resource type="Animation" id="Animation_4ob8b"]
@@ -92,7 +92,7 @@ tracks/2/keys = {
 "clips": [{
 "end_offset": 0.0,
 "start_offset": 0.0,
-"stream": ExtResource("3_e1msh")
+"stream": ExtResource("3_oggeg")
 }],
 "times": PackedFloat32Array(0)
 }
@@ -107,7 +107,7 @@ tracks/3/keys = {
 "times": PackedFloat32Array(0, 0.6),
 "transitions": PackedFloat32Array(1, 1),
 "update": 0,
-"values": [Vector2(-3.25, 11.5), Vector2(-11.25, 11.5)]
+"values": [Vector2(0.5, 3.75), Vector2(0.5, -9.25)]
 }
 tracks/4/type = "value"
 tracks/4/imported = false
@@ -119,7 +119,7 @@ tracks/4/keys = {
 "times": PackedFloat32Array(0, 0.6),
 "transitions": PackedFloat32Array(1, 1),
 "update": 0,
-"values": [Vector2(4.75, 11.5), Vector2(12.75, 11.5)]
+"values": [Vector2(0, 16), Vector2(0, 33.75)]
 }
 
 [sub_resource type="Animation" id="Animation_e1msh"]
@@ -160,7 +160,7 @@ tracks/2/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 0,
-"values": [Vector2(-3.25, 11.5)]
+"values": [Vector2(0.5, 3.75)]
 }
 tracks/3/type = "value"
 tracks/3/imported = false
@@ -172,7 +172,7 @@ tracks/3/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 0,
-"values": [Vector2(4.75, 11.5)]
+"values": [Vector2(0, 16)]
 }
 
 [sub_resource type="Animation" id="Animation_5m44w"]
@@ -213,7 +213,7 @@ tracks/2/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 0,
-"values": [Vector2(-3.25, 11.5)]
+"values": [Vector2(0.5, 3.75)]
 }
 tracks/3/type = "value"
 tracks/3/imported = false
@@ -225,7 +225,7 @@ tracks/3/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 0,
-"values": [Vector2(4.75, 11.5)]
+"values": [Vector2(0, 16)]
 }
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_tga2a"]
@@ -237,21 +237,21 @@ _data = {
 }
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_7u6pd"]
-size = Vector2(16, 34)
+size = Vector2(20.5, 16)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_e1msh"]
-size = Vector2(8, 18.875)
+size = Vector2(3.875, 12.1875)
 
 [node name="OBJ_Door1" type="Node2D" unique_id=2008348332 node_paths=PackedStringArray("detector", "animation_player")]
 scale = Vector2(4, 4)
-script = ExtResource("1_7u6pd")
+script = ExtResource("1_y2ntl")
 detector = NodePath("Area2D")
 animation_player = NodePath("AnimationPlayer")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=647991730]
 texture_filter = 1
-position = Vector2(0, 21)
-sprite_frames = ExtResource("1_5m44w")
+position = Vector2(4, 12.5)
+sprite_frames = ExtResource("2_y2ntl")
 animation = &"open"
 centered = false
 offset = Vector2(-16, -24)
@@ -262,30 +262,29 @@ libraries/ = SubResource("AnimationLibrary_tga2a")
 [node name="Area2D" type="Area2D" parent="." unique_id=1056391111]
 position = Vector2(0, 22.25)
 collision_layer = 0
-collision_mask = 2
+collision_mask = 0
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D" unique_id=1087920774]
-position = Vector2(0, -10.75)
+position = Vector2(0.25, -1.75)
 shape = SubResource("RectangleShape2D_7u6pd")
 
 [node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="." unique_id=1408960398]
-volume_db = 16.254
+volume_db = 17.03
 pitch_scale = 0.38
 
 [node name="Physics" type="Node2D" parent="." unique_id=118110980]
 
 [node name="LeftDoor" type="StaticBody2D" parent="Physics" unique_id=445622162]
-position = Vector2(-3.25, 11.5)
+position = Vector2(0.5, 3.75)
 collision_mask = 6
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Physics/LeftDoor" unique_id=1650318330]
-position = Vector2(-0.75, -2)
+position = Vector2(-0.5625, 0)
 shape = SubResource("RectangleShape2D_e1msh")
 
 [node name="RightDoor" type="StaticBody2D" parent="Physics" unique_id=756826222]
-position = Vector2(4.75, 11.5)
+position = Vector2(0, 16)
 collision_mask = 6
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Physics/RightDoor" unique_id=1079965140]
-position = Vector2(-0.75, -2)
 shape = SubResource("RectangleShape2D_e1msh")

@@ -3,12 +3,11 @@ extends Node
 
 
 @export var user: Node2D
-@export var target: Node2D
+@export var target: Node
 @export var direction: Vector2
 
 signal finished()
 signal cancelled()
-
 
 @export var auto_finish: bool = true
 @export var auto_start: bool = true

@@ -31,12 +31,8 @@ var _commanded_open: bool = false
 
 func _ready():
 	UTL_Ship.register_structure(self)
-	#if detector:
-		#detector.body_entered.connect(_body_entered)
-		#detector.body_exited.connect(_body_exited)
 
 	configure_startup()
-	#useable.state = SCR_Useable.UseableState.OFF
 	structure.set_useable_off()
 	
 	await get_tree().create_timer(0.5).timeout
@@ -80,9 +76,8 @@ func try_open():
 		room2.set_shown(LightingRoom.SHOWN_PORTAL, true)
 	
 	if not _is_open and animation_player != null:
-		#if not animation_player.is_playing():
-			animation_player.play('open')
-			_is_open = true
+		animation_player.play('open')
+		_is_open = true
 			
 	#useable.set_state(self, SCR_Useable.UseableState.ON)
 	structure.set_useable_on()
@@ -100,14 +95,13 @@ func try_close():
 	var count = detector.get_overlapping_areas().size() + detector.get_overlapping_bodies().size()
 	if count > 0: return
 	
-	room1.set_shown(LightingRoom.SHOWN_PORTAL, false)
-	room2.set_shown(LightingRoom.SHOWN_PORTAL, false)
+	if room1: room1.set_shown(LightingRoom.SHOWN_PORTAL, false)
+	if room2: room2.set_shown(LightingRoom.SHOWN_PORTAL, false)
 	
 	if _is_open && animation_player != null:
 		animation_player.play_backwards('open')
 		_is_open = false
 		
-	#useable.set_state(self, SCR_Useable.UseableState.OFF)
 	structure.set_useable_off()
 
 func is_powered() -> bool:

@@ -7,6 +7,7 @@ extends Node
 @export var movement: MovementNode
 @export var definition: DataRoot
 @export var useable_user: SCR_UseableUser
+@export var controller: Node
 
 var data: DataRoot
 @onready var signals: Utl_Signals = Utl_Signals.new()

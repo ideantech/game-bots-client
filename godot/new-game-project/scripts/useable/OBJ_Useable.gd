@@ -4,7 +4,7 @@ extends Node2D
 
 @export_group("Activation")
 @export var target_user: bool = false
-@export var target: Node2D = null
+@export var target: Node = null
 @export_file_path('*.tscn', '*.gd') var activate_ability: String
 @export_file_path('*.tscn', '*.gd') var deactivate_ability: String
 
@@ -131,7 +131,9 @@ func deactivate(used_by: Node2D):
 	try_run_ability(deactivate_ability, used_by)
 	
 func use(used_by: Node2D):
-	if not SCR_Structure.has_structure(target): return
+	if not SCR_Structure.has_structure(target): 
+		push_error('error: target is not a structure')
+		return
 	
 	if (target.structure as SCR_Structure).is_useable_disabled():
 		return

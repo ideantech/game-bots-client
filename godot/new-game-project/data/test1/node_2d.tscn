@@ -1,4 +1,4 @@
-[gd_scene load_steps=13 format=3 uid="uid://n56pcg2q4pye"]
+[gd_scene format=3 uid="uid://n56pcg2q4pye"]
 
 [ext_resource type="Script" uid="uid://dp18lwdoalkrp" path="res://nodes/DataNode.gd" id="1_lhixu"]
 [ext_resource type="Script" uid="uid://behll5n5gr7g2" path="res://nodes/Index.gd" id="1_re3h8"]
@@ -23,7 +23,7 @@ fill_to = Vector2(0.83247864, 0.15555556)
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_re3h8"]
 
-[node name="Character" type="CharacterBody2D" unique_id=1881503207 node_paths=PackedStringArray("body", "animator", "movement", "useable_user")]
+[node name="Character" type="CharacterBody2D" unique_id=1881503207 node_paths=PackedStringArray("body", "animator", "movement", "useable_user", "controller")]
 collision_layer = 2
 script = ExtResource("1_re3h8")
 body = NodePath(".")
@@ -31,6 +31,7 @@ animator = NodePath("MiniHuman")
 movement = NodePath("Movement")
 definition = ExtResource("2_c02jm")
 useable_user = NodePath("UseableUser")
+controller = NodePath("PlayerMovementController")
 
 [node name="Body" type="CollisionShape2D" parent="." unique_id=455501206]
 shape = SubResource("CircleShape2D_qtntp")

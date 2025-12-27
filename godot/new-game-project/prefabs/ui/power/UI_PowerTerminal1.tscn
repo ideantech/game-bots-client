@@ -1,0 +1,100 @@
+[gd_scene format=3 uid="uid://4kl8mm3t68op"]
+
+[ext_resource type="Texture2D" uid="uid://ca0ykr8wssxef" path="res://assets/mini-fantasy/ui/_Grim_UI.png" id="1_mxjp4"]
+[ext_resource type="Script" uid="uid://6oxrksn4al34" path="res://prefabs/ui/power/UI_PowerTerminal1.gd" id="1_q5r15"]
+[ext_resource type="FontFile" uid="uid://662io4msdefo" path="res://assets/fonts/Dust 7.ttf" id="2_ecbw2"]
+
+[node name="UI_PowerTerminal1" type="VBoxContainer" unique_id=676154855]
+anchors_preset = -1
+anchor_right = 0.201
+anchor_bottom = 0.24700001
+offset_right = 0.44799805
+offset_bottom = -0.055999756
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_q5r15")
+
+[node name="Control" type="Control" parent="." unique_id=885775795]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="NinePatchRect" type="NinePatchRect" parent="Control" unique_id=1045748446]
+modulate = Color(0.45028165, 0.45028165, 0.45028165, 1)
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("1_mxjp4")
+region_rect = Rect2(3760, 160, 48, 48)
+patch_margin_left = 8
+patch_margin_top = 8
+patch_margin_right = 8
+patch_margin_bottom = 8
+axis_stretch_horizontal = 1
+axis_stretch_vertical = 1
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Control" unique_id=2062719160]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/separation = 24
+
+[node name="HBoxContainer3" type="HBoxContainer" parent="Control/VBoxContainer" unique_id=1609123589]
+layout_mode = 2
+
+[node name="HBoxContainer" type="HBoxContainer" parent="Control/VBoxContainer" unique_id=2017261069]
+layout_mode = 2
+alignment = 1
+
+[node name="Label" type="Label" parent="Control/VBoxContainer/HBoxContainer" unique_id=613858843]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("2_ecbw2")
+text = "Power System Status:"
+
+[node name="lblStatus" type="Label" parent="Control/VBoxContainer/HBoxContainer" unique_id=1341103112]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_fonts/font = ExtResource("2_ecbw2")
+text = "Offline"
+
+[node name="HBoxContainer2" type="HBoxContainer" parent="Control/VBoxContainer" unique_id=1984683410]
+layout_mode = 2
+theme_override_constants/separation = 40
+alignment = 1
+
+[node name="btnStartup" type="Button" parent="Control/VBoxContainer/HBoxContainer2" unique_id=417005963]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_fonts/font = ExtResource("2_ecbw2")
+text = "Startup"
+
+[node name="btnShutdown" type="Button" parent="Control/VBoxContainer/HBoxContainer2" unique_id=1476693628]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_fonts/font = ExtResource("2_ecbw2")
+text = "Shutdown"
+
+[node name="HBoxContainer4" type="HBoxContainer" parent="Control/VBoxContainer" unique_id=1288772147]
+layout_mode = 2
+alignment = 1
+
+[node name="lblExecutionStatus" type="Label" parent="Control/VBoxContainer/HBoxContainer4" unique_id=403099906]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_fonts/font = ExtResource("2_ecbw2")
+text = "Executing ..."
+
+[node name="HBoxContainer5" type="HBoxContainer" parent="Control/VBoxContainer" unique_id=2060420559]
+layout_mode = 2
+alignment = 2
+
+[node name="btnExit" type="Button" parent="Control/VBoxContainer/HBoxContainer5" unique_id=956286380]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_fonts/font = ExtResource("2_ecbw2")
+text = "Exit"

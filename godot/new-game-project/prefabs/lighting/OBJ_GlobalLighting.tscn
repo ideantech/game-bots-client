@@ -1,6 +1,0 @@
-[gd_scene format=3 uid="uid://bitvyxiub252s"]
-
-[ext_resource type="Script" uid="uid://bh3814s5biiuy" path="res://prefabs/lighting/OBJ_GlobalLighting.gd" id="1_g46c3"]
-
-[node name="OBJ_GlobalLighting" type="Node2D" unique_id=995601998]
-script = ExtResource("1_g46c3")

@@ -18,6 +18,13 @@ func _ready() -> void:
 	pass # Replace with function body.
 
 
+func disable():
+	enabled = false
+	
+func enable():
+	enabled = true
+
+
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:
 	if not enabled:
@@ -30,6 +37,13 @@ func _process(delta: float) -> void:
 			#parent.useable_user.get_target().activate(parent)
 			parent.useable_user.use(get_parent())
 			return
+			
+	if Input.is_action_just_pressed('player_console'):
+		var abl := ABL_OpenConsole.new()
+		abl.user = get_parent()
+		abl.target = null
+		parent.add_child(abl)
+		return
 	
 	var raise = Input.is_action_pressed('ui_raise_weapon')
 	if raise and not _weapon_raised:
